@@ -10,6 +10,7 @@ def call() {
                     sh "git reset --hard"
                     sh "git checkout master"
                     sh "git merge origin/${env.BRANCH_NAME}"
+                    sh "git config -l"
                     sh "git push origin master"
                 } catch (any) {
                     // If there is an error doing the merge we don't want the build to fail.
