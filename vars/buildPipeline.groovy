@@ -28,7 +28,7 @@ def call(project) {
 
             }
 
-            stage('Unit Tests') {
+            stage('Build') {
                 steps {
                     sh "./gradlew -Pversion=${env.BUILD_VERSION} --stacktrace --continue clean build"
 //                    lock("${env.PROJECT_NAME}-db") {
@@ -37,7 +37,7 @@ def call(project) {
                 }
                 post {
                     always {
-                        junit "**/test-results/test/TEST-*.xml"
+                        junit "**/test-reports/test/TEST-*.xml"
                     }
                 }
             }
