@@ -68,6 +68,7 @@ def call(project) {
         }
         post {
             failure {
+                echo "failure when building..."
                 // This script is used to kill pending processes of this job build, because the ProcessTreeKiller won't kill those processes
                 // when the e2e tests on start up.
 //                sh """#!/bin/sh -e
