@@ -51,6 +51,36 @@ def call(project) {
                 }
             }
 
+            stage ('Build Docker Images') {
+                steps {
+                    sh 'sudo ./gradlew skysail.server:runnable skysail.server:buildImage'
+                    sh 'sudo ./gradlew skysail.server.website:runnable skysail.server.website:buildImage'
+                    sh 'sudo ./gradlew skysail.server.demo:runnable skysail.server.demo:buildImage'
+                }
+            }
+
+            stage ('Restart Containers') {
+                steps {
+                    script {
+                        sh "svn update /home/carsten/skysail/skysailconfigs/"
+                        withEnv(['JENKINS_NODE_COOKIE =dontkill']) {
+                            sh "sudo ./skysail.server/release/deployment/scripts/run_docker.sh &"
+                        }
+                        withEnv(['JENKINS_NODE_COOKIE =dontkill']) {
+                            sh "sudo ./skysail.server.website/release/deployment/scripts/run_docker_test.sh &"
+                        }
+                    }
+                }
+            }
+
+            stage ('Document') {
+                steps {
+                    //sh "./gradlew asciidoctor"
+                    sh "./gradlew scaladoc"
+                }
+            }
+
+
             /*stage('Sonar') {
                 steps {
                     stageSonar()
