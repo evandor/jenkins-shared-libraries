@@ -1,0 +1,35 @@
+pipeline {
+    agent any
+
+    triggers {
+        cron('H 0 * * *')
+    }
+
+    options {
+        buildDiscarder(logRotator(numToKeepStr: '10'))
+    }
+
+    stages {
+        stage('Prepare') {
+            steps {
+                // clean workspace
+                checkout scm
+            }
+
+        }
+
+        stage('Backup') {
+            steps {
+                sh "chmod +x ./scripts/jenkins-backup.sh"
+                sh "./scripts/jenkins-backup.sh $JENKINS_HOME /export/home/jenkins/jenkins_backup/backup_`date +\"%Y%m%d\"`.tar.gz"
+            }
+        }
+
+        stage('Delete old backups') {
+            steps {
+                sh "find /export/home/jenkins/jenkins_backup/backup_* -mtime +3 -delete"
+            }
+        }
+    }
+
+}

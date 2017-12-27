@@ -91,7 +91,7 @@ def call(project) {
                 steps {
                     stageDeploy()
                 }
-            }
+            }*/
 
             stage('merge in master') {
                 steps {
@@ -99,7 +99,7 @@ def call(project) {
                 }
             }
 
-            stage('merge in higher versions') {
+            /*stage('merge in higher versions') {
                 steps {
                     stageMergeHigherVersion()
                 }

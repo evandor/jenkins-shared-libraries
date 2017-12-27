@@ -1,0 +1,10 @@
+# Created by .ignore support plugin (hsz.mobi)
+*.iml
+
+## Directory-based project format:
+.idea/
+
+# IntelliJ
+/out/
+
+

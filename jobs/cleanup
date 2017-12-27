@@ -1,0 +1,29 @@
+pipeline {
+    agent any
+
+    triggers {
+        cron('H 1 * * *')
+    }
+
+    options {
+        buildDiscarder(logRotator(numToKeepStr: '10'))
+    }
+
+    stages {
+        stage('Cleanup Local Maven Repository') {
+            steps {
+                echo "Cleaning ondes artifacts"
+                //sh "find /export/home/jenkins/.m2/repository/path/to/app/*/4.0.* -mtime +1 -delete"
+                echo "Cleanup finished"
+            }
+
+        }
+
+        stage('Cleanup Local Gradle Repository') {
+            steps {
+                echo "No cleanup tasks defined yet"
+            }
+        }
+    }
+
+}

@@ -1,0 +1,5 @@
+import io.skysail.jenkins.config.Environment
+
+@Library('jenkins-library') _
+
+deploymentPipeline Environment.ABN
