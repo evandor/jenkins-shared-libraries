@@ -43,10 +43,12 @@ def call(project) {
             }
 
             stage('Export Jars') {
-                sh './gradlew skysail.server:export.server.test'
-                sh './gradlew skysail.server:export.server.int'
-                sh './gradlew skysail.server.website:export.server.website'
-                sh './gradlew skysail.server.demo:export.server.demo'
+                steps {
+                    sh './gradlew skysail.server:export.server.test'
+                    sh './gradlew skysail.server:export.server.int'
+                    sh './gradlew skysail.server.website:export.server.website'
+                    sh './gradlew skysail.server.demo:export.server.demo'
+                }
             }
 
             /*stage('Sonar') {
