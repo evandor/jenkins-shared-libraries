@@ -93,11 +93,11 @@ def call(project) {
                 }
             }*/
 
-            stage('merge in master') {
+            /*stage('merge in master') {
                 steps {
                     stageMergeMaster()
                 }
-            }
+            }*/
 
             /*stage('merge in higher versions') {
                 steps {
