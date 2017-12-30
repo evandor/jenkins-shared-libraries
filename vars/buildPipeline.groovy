@@ -30,7 +30,7 @@ def call(project) {
 
             stage('Build') {
                 steps {
-                    sh "./gradlew -Pversion=${env.BUILD_VERSION} -Dversion=${env.BUILD_VERSION} --stacktrace --continue clean build"
+                    sh "./gradlew -Pversion=${env.BUILD_VERSION} -DbuildVersion=${env.BUILD_VERSION} --stacktrace --continue clean build"
 //                    lock("${env.PROJECT_NAME}-db") {
 //                        stageUnitTests()
 //                    }
