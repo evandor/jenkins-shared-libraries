@@ -54,7 +54,7 @@ def call(project) {
                     sh './gradlew skysail.server:export.server.test'
                     sh './gradlew skysail.server:export.server.int'
                     sh './gradlew skysail.server.website:export.server.website'
-                    sh './gradlew skysail.server.demo:export.server.demo.docker'
+                    //sh './gradlew skysail.server.demo:export.server.demo.docker'
                 }
             }
 
@@ -62,7 +62,7 @@ def call(project) {
                 steps {
                     sh 'sudo ./gradlew skysail.server:runnable skysail.server:buildImage'
                     sh 'sudo ./gradlew skysail.server.website:runnable skysail.server.website:buildImage'
-                    sh 'sudo ./gradlew skysail.server.demo:runnable skysail.server.demo:buildImage'
+                    //sh 'sudo ./gradlew skysail.server.demo:runnable skysail.server.demo:buildImage'
                 }
             }
 
