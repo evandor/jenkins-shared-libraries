@@ -49,7 +49,7 @@ def call(project) {
                 }
             }
 
-            stage('Export Jars') {
+           /* stage('Export Jars') {
                 steps {
                     sh './gradlew skysail.server:export.server.test'
                     sh './gradlew skysail.server:export.server.int'
@@ -76,7 +76,7 @@ def call(project) {
                         }
                     }
                 }
-            }
+            }*/
 
             stage ('Document') {
                 steps {
