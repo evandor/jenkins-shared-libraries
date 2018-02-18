@@ -16,7 +16,7 @@ def call(project) {
         agent any
 
         options {
-            buildDiscarder(logRotator(numToKeepStr: '10'))
+            buildDiscarder(logRotator(numToKeepStr: '20'))
         }
 
         stages {
@@ -30,14 +30,14 @@ def call(project) {
 
             stage('Build') {
                 steps {
-                    sh "./gradlew -Pversion=${env.BUILD_VERSION} -DbuildVersion=jenkins-${env.BUILD_VERSION} --stacktrace --continue clean build"
+                    sh "./gradlew -Pversion=${env.BUILD_NUMBER} -DbuildVersion=jenkins-${env.BUILD_NUMBER} --stacktrace --continue clean build"
 //                    lock("${env.PROJECT_NAME}-db") {
 //                        stageUnitTests()
 //                    }
                     withCredentials([usernamePassword(credentialsId: '52dc175f-8512-45d2-97e6-ebec0e60b907',
                             usernameVariable: 'ACCESS_TOKEN_USERNAME',
                             passwordVariable: 'ACCESS_TOKEN_PASSWORD',)]) {
-                        sh "git tag -m '' ${env.BUILD_VERSION}"
+                        sh "git tag -m '' ${env.BUILD_NUMBER}"
                         sh "git remote set-url origin https://$ACCESS_TOKEN_USERNAME:$ACCESS_TOKEN_PASSWORD@github.com/evandor/skysail-server"
                         sh "git push --tags"
                     }
