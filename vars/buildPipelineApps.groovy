@@ -23,7 +23,7 @@ def call(project) {
 
             stage('Prepare') {
                 steps {
-                    stagePrepare()
+                    stagePrepareApps()
                 }
 
             }
