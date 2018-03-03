@@ -6,6 +6,8 @@
  * https://wiki.jenkins-ci.org/display/JENKINS/Pipeline+Model+Definition+Plugin
  * https://wiki.jenkins-ci.org/display/JENKINS/Pipeline+Utility+Steps+Plugin
  * https://wiki.jenkins-ci.org/display/JENKINS/Lockable+Resources+Plugin
+ *
+ * This is used from the jenkins docker based installation @ http://85.25.22.126:8080
  */
 
 def call(project) {
@@ -56,8 +58,8 @@ def call(project) {
 
             stage ('Build Docker Images') {
                 steps {
-                    sh 'sudo ./gradlew skysail.server:runnable skysail.server:buildImage'
-                    sh 'sudo ./gradlew skysail.server.website:runnable skysail.server.website:buildImage'
+                    sh './gradlew skysail.server:runnable skysail.server:buildImage'
+                    sh './gradlew skysail.server.website:runnable skysail.server.website:buildImage'
                 }
             }
 
@@ -66,10 +68,10 @@ def call(project) {
                     script {
                         sh "svn update /home/carsten/skysail/skysailconfigs/"
                         withEnv(['JENKINS_NODE_COOKIE =dontkill']) {
-                            sh "sudo ./skysail.server/release/deployment/scripts/run_docker.sh &"
+                            sh "./skysail.server/release/deployment/scripts/run_docker.sh &"
                         }
                         withEnv(['JENKINS_NODE_COOKIE =dontkill']) {
-                            sh "sudo ./skysail.server.website/release/deployment/scripts/run_docker_test.sh &"
+                            sh "./skysail.server.website/release/deployment/scripts/run_docker_test.sh &"
                         }
                     }
                 }
