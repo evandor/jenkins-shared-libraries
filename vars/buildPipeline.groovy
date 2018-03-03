@@ -28,12 +28,9 @@ def call(project) {
 
             }
 
-            stage('Build') {
+           /* stage('Build') {
                 steps {
                     sh "./gradlew -Pversion=${env.BUILD_VERSION} -DbuildVersion=jenkins-${env.BUILD_VERSION} --stacktrace --continue clean build"
-//                    lock("${env.PROJECT_NAME}-db") {
-//                        stageUnitTests()
-//                    }
                     withCredentials([usernamePassword(credentialsId: '52dc175f-8512-45d2-97e6-ebec0e60b907',
                             usernameVariable: 'ACCESS_TOKEN_USERNAME',
                             passwordVariable: 'ACCESS_TOKEN_PASSWORD',)]) {
@@ -44,7 +41,7 @@ def call(project) {
                 }
                 post {
                     always {
-                        junit "**/test-reports/test/TEST-*.xml"
+                        //junit "** /test-reports/test/TEST-*.xml"
                     }
                 }
             }
@@ -83,32 +80,9 @@ def call(project) {
                     //sh "./gradlew asciidoctor"
                     sh "./gradlew scaladoc"
                 }
-            }
-
-
-            /*stage('Sonar') {
-                steps {
-                    stageSonar()
-                }
-            }
-
-            stage('Deploy') {
-                steps {
-                    stageDeploy()
-                }
             }*/
 
-            /*stage('merge in master') {
-                steps {
-                    stageMergeMaster()
-                }
-            }*/
 
-            /*stage('merge in higher versions') {
-                steps {
-                    stageMergeHigherVersion()
-                }
-            }*/
         }
         post {
             failure {
