@@ -32,7 +32,7 @@ def call(project) {
 
             stage('Build') {
                 steps {
-                    sh "./gradlew -Pversion=${env.BUILD_VERSION} -DbuildVersion=jenkins-${env.BUILD_VERSION} --stacktrace --continue build -x test -x check"
+                    sh "./gradlew -Pversion=${env.BUILD_VERSION} -DbuildVersion=jenkins-${env.BUILD_VERSION} --stacktrace --continue clean build -x test -x check"
                 }
             }
 
