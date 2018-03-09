@@ -30,9 +30,41 @@ def call(project) {
 
             }
 
-           stage('Build') {
+            stage('Build') {
                 steps {
-                    sh "./gradlew -Pversion=${env.BUILD_VERSION} -DbuildVersion=jenkins-${env.BUILD_VERSION} --stacktrace --continue clean build"
+                    sh "./gradlew -Pversion=${env.BUILD_VERSION} -DbuildVersion=jenkins-${env.BUILD_VERSION} --stacktrace --continue clean build -x test -x check"
+                }
+                post {
+                    always {
+                        junit "**/test-reports/test/TEST-*.xml"
+                    }
+                }
+            }
+
+            stage('Test') {
+                steps {
+                    sh "./gradlew -Pversion=${env.BUILD_VERSION} -DbuildVersion=jenkins-${env.BUILD_VERSION} --stacktrace --continue test"
+                }
+                post {
+                    always {
+                        junit "**/test-reports/test/TEST-*.xml"
+                    }
+                }
+            }
+
+            stage('Check') {
+                steps {
+                    sh "./gradlew -Pversion=${env.BUILD_VERSION} -DbuildVersion=jenkins-${env.BUILD_VERSION} --stacktrace --continue check"
+                }
+                post {
+                    always {
+                        junit "**/test-reports/test/TEST-*.xml"
+                    }
+                }
+            }
+
+            stage('Tag') {
+                steps {
                     withCredentials([usernamePassword(credentialsId: 'd04cfe1a-4efc-4a0a-b65b-4775a1a15a14',
                             usernameVariable: 'ACCESS_TOKEN_USERNAME',
                             passwordVariable: 'ACCESS_TOKEN_PASSWORD',)]) {
