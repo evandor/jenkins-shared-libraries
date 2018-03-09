@@ -32,7 +32,7 @@ def call(project) {
 
             stage('Build') {
                 steps {
-                    sh "./gradlew -Pversion=${env.BUILD_VERSION} -DbuildVersion=jenkins-${env.BUILD_VERSION} --stacktrace --continue clean build -x test -x check"
+                    sh "./gradlew -Pversion=${env.BUILD_VERSION} -DbuildVersion=jenkins-${env.BUILD_VERSION} --stacktrace --continue build -x test -x check"
                 }
             }
 
@@ -50,11 +50,6 @@ def call(project) {
             stage('Check') {
                 steps {
                     sh "./gradlew -Pversion=${env.BUILD_VERSION} -DbuildVersion=jenkins-${env.BUILD_VERSION} --stacktrace --continue check"
-                }
-                post {
-                    always {
-                        junit "**/test-reports/test/TEST-*.xml"
-                    }
                 }
             }
 
