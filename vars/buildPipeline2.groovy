@@ -51,6 +51,7 @@ def call(project) {
             stage('Export Jars') {
                 steps {
                     sh './gradlew skysail.server:export.server.docker'
+                    sh './gradlew skysail.server.demo:export.server.demo.docker'
                     sh './gradlew skysail.server.website:export.server.website'
                 }
             }
@@ -58,6 +59,7 @@ def call(project) {
             stage ('Build Docker Images') {
                 steps {
                     sh './gradlew skysail.server:runnable skysail.server:buildImage'
+                    sh './gradlew skysail.server.demo:runnable skysail.server.demo:buildImage'
                     sh './gradlew skysail.server.website:runnable skysail.server.website:buildImage'
                 }
             }
@@ -66,12 +68,15 @@ def call(project) {
                 steps {
                     script {
                         sh "svn update /home/carsten/skysail/skysailconfigs/"
+                        sh "svn update /home/carsten/install/docker/"
+
                         withEnv(['JENKINS_NODE_COOKIE =dontkill']) {
                             sh "./skysail.server/release/deployment/scripts/run_docker.sh &"
                         }
                         withEnv(['JENKINS_NODE_COOKIE =dontkill']) {
                             //sh "./skysail.server.website/release/deployment/scripts/run_docker_test.sh &"
                             sh "/home/carsten/skysail/skysailconfigs/website/test/deploy/run_docker.sh"
+                            sh "/home/carsten/install/docker/skysail/run_docker.sh demo test latest"
                         }
                     }
                 }
