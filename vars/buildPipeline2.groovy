@@ -34,11 +34,6 @@ def call(project) {
                 steps {
                     sh "./gradlew -Pversion=${env.BUILD_VERSION} -DbuildVersion=jenkins-${env.BUILD_VERSION} --stacktrace --continue clean build -x test -x check"
                 }
-                post {
-                    always {
-                        junit "**/test-reports/test/TEST-*.xml"
-                    }
-                }
             }
 
             stage('Test') {
@@ -71,11 +66,6 @@ def call(project) {
                         sh "git tag -m '' ${env.BUILD_VERSION}"
                         sh "git remote set-url origin https://$ACCESS_TOKEN_USERNAME:$ACCESS_TOKEN_PASSWORD@github.com/evandor/skysail-server"
                         sh "git push --tags"
-                    }
-                }
-                post {
-                    always {
-                        junit "**/test-reports/test/TEST-*.xml"
                     }
                 }
             }
