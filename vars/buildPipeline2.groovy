@@ -76,7 +76,7 @@ def call(project) {
             stage ('Build Docker Images') {
                 steps {
                     sh './gradlew skysail.server:runnable skysail.server:buildImage'
-                    sh './gradlew skysail.server.demo:runnable skysail.server.demo:buildImage'
+                    sh "./gradlew skysail.server.demo:runnable skysail.server.demo:buildImage -Pversion=${env.BUILD_VERSION}"
                     sh './gradlew skysail.server.website:runnable skysail.server.website:buildImage'
                 }
             }
