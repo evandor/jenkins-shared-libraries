@@ -77,7 +77,7 @@ def call(project) {
                 steps {
                     sh './gradlew skysail.server:runnable skysail.server:buildImage'
                     sh "./gradlew skysail.server.demo:runnable skysail.server.demo:buildImage -Pversion=${env.BUILD_VERSION}"
-                    sh './gradlew skysail.server.website:runnable skysail.server.website:buildImage'
+                    sh "./gradlew skysail.server.website:runnable skysail.server.website:buildImage -Pversion=${env.BUILD_VERSION}"
                 }
             }
 
@@ -92,7 +92,8 @@ def call(project) {
                         }
                         withEnv(['JENKINS_NODE_COOKIE =dontkill']) {
                             //sh "./skysail.server.website/release/deployment/scripts/run_docker_test.sh &"
-                            sh "/home/carsten/skysail/skysailconfigs/website/test/deploy/run_docker.sh"
+                            //sh "/home/carsten/skysail/skysailconfigs/website/test/deploy/run_docker.sh"
+                            sh "/home/carsten/install/docker/skysail/run_docker.sh demo website ${env.BUILD_VERSION} &"
                             sh "/home/carsten/install/docker/skysail/run_docker.sh demo test ${env.BUILD_VERSION} &"
                         }
                     }
