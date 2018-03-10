@@ -99,6 +99,13 @@ def call(project) {
                 }
             }
 
+            stage ('Push 2 Docker.io') {
+                steps {
+                    sh "docker --version"
+                }
+            }
+
+
             stage ('Document') {
                 steps {
                     //sh "./gradlew asciidoctor"
