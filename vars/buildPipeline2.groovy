@@ -65,7 +65,7 @@ def call(project) {
                 }
             }
 
-            stage('Export Jars!') {
+            stage('Export Jars') {
                 steps {
                     sh './gradlew skysail.server:export.server.docker'
                     sh './gradlew skysail.server.demo:export.server.demo.docker'
