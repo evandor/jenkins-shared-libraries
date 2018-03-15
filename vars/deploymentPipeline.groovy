@@ -54,7 +54,7 @@ def call(String deployEnvironment) {
                 steps {
                     script {
                         withEnv(['JENKINS_NODE_COOKIE =dontkillDeployment']) {
-                            sh "/home/carsten/install/docker/skysail/run_docker.sh website test 0.0.135 &"
+                            sh "nohup /home/carsten/install/docker/skysail/run_docker.sh website test 0.0.135 &"
                         }
                     }
                 }
