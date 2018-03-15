@@ -1,10 +1,9 @@
-import io.skysail.jenkins.ApplicationRepo
 
-def call(instanceName) {
-    env.APPLICATION_KEY =
-            input(id: 'env.APPLICATION_KEY', message: 'Was soll deployed werden?', parameters: [
+def call() {
+    env.INSTANCE_NAME =
+            input(id: 'env.INSTANCE_NAME', message: 'Welche Anwendung soll deployed werden?', parameters: [
                     [$class     : 'ChoiceParameterDefinition',
-                     choices    : ApplicationRepo.getApplicationChoices(instanceName),
-                     description: 'Welche Applikation soll deployed werden?', name: 'application']
+                     choices    : "demo\nwebsite",
+                     description: 'Welche Instanz soll deployed werden?', name: 'instance']
             ])
 }

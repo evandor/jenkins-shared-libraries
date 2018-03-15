@@ -25,7 +25,7 @@ def call(String deployEnvironment) {
         stages {
             stage('Select Instance') {
                 steps {
-                    stageSelectInstance()
+                    stageSelectApplication()
                 }
             }
 

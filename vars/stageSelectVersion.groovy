@@ -1,5 +1,5 @@
 
-def call() {
+def call(application) {
     env.VERSION =
             input(id: 'env.VERSION', message: 'Welche Version soll deployed werden?', parameters: [
                     [$class       : 'StringParameterDefinition',
