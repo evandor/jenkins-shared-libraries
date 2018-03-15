@@ -48,14 +48,20 @@ def call(String deployEnvironment) {
                 steps {
                     stageCopyToDeploymentRepo(env.APPLICATION_KEY, env.APPLICATION_VERSION)
                 }
-            }
+            }*/
 
             stage('Deploy') {
                 steps {
                     script {
+                        withEnv(['JENKINS_NODE_COOKIE =dontkill']) {
+                            //sh "./skysail.server.website/release/deployment/scripts/run_docker_test.sh &"
+                            //sh "/home/carsten/skysail/skysailconfigs/website/test/deploy/run_docker.sh"
+                            sh "/home/carsten/install/docker/skysail/run_docker.sh website test ${env.BUILD_VERSION} &"
+                            sh "/home/carsten/install/docker/skysail/run_docker.sh demo test ${env.BUILD_VERSION} &"
+                        }
                     }
                 }
-            }*/
+            }
         }
     }
 }
