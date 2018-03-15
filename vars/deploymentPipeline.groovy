@@ -29,7 +29,7 @@ def call(Environment deployEnvironment) {
                 }
             }
 
-            stage('Select Application') {
+           /* stage('Select Application') {
                 steps {
                     stageSelectApplication(env.INSTANCE_NAME)
                 }
@@ -58,7 +58,7 @@ def call(Environment deployEnvironment) {
                     script {
                     }
                 }
-            }
+            }*/
         }
     }
 }
