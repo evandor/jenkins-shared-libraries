@@ -35,7 +35,7 @@ def call(String deployEnvironment) {
                 }
             }*/
 
-            stage('Select Version!') {
+            stage('Select Version') {
                 steps {
                     stageSelectVersion(env.INSTANCE_NAME)
                 }
@@ -53,7 +53,7 @@ def call(String deployEnvironment) {
             stage('Deploy') {
                 steps {
                     script {
-                        withEnv(['JENKINS_NODE_COOKIE =dontkill']) {
+                        withEnv(['JENKINS_NODE_COOKIE =dontkillDeployment']) {
                             sh "/home/carsten/install/docker/skysail/run_docker.sh website test 0.0.135 &"
                         }
                     }
