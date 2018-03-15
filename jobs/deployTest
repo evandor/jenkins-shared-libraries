@@ -1,5 +1,3 @@
-import io.skysail.jenkins.Environment
-
 @Library('jenkins-library') _
 
 deploymentPipeline test
