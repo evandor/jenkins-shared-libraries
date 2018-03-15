@@ -9,7 +9,7 @@ import io.skysail.jenkins.config.Environment
  * https://wiki.jenkins-ci.org/display/JENKINS/Pipeline+Utility+Steps+Plugin
  */
 
-def call(Environment deployEnvironment) {
+def call(String deployEnvironment) {
 
     env.INSTANCE_NAME
     env.APPLICATION_KEY
