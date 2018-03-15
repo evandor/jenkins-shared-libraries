@@ -1,4 +1,3 @@
-import io.skysail.jenkins.Instance
 
 def call() {
     env.INSTANCE_NAME =
