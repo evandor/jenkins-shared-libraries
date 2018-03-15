@@ -29,22 +29,19 @@ def call(String deployEnvironment) {
                 }
             }
 
-           /* stage('Select Application') {
+           /*stage('Select Application') {
                 steps {
                     stageSelectApplication(env.INSTANCE_NAME)
                 }
-            }
+            }*/
 
             stage('Select Version') {
                 steps {
-                    script {
-                        String repositoryId = NexusRepository.getByEnvironment(deployEnvironment).id
-                        stageSelectVersion(env.INSTANCE_NAME, env.APPLICATION_KEY, repositoryId)
-                    }
+                    stageSelectVersion(env.INSTANCE_NAME)
                 }
             }
 
-            stage('Copy to Deployment Repository') {
+            /*stage('Copy to Deployment Repository') {
                 when {
                     expression { deployEnvironment == Environment.ABN }
                 }
