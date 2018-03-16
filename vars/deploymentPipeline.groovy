@@ -53,9 +53,17 @@ def call(String deployEnvironment) {
             stage('Deploy') {
                 steps {
                     script {
-                        withEnv(['JENKINS_NODE_COOKIE =dontkillDeployment']) {
+                        withEnv(['JENKINS_NODE_COOKIE=dontkillDeployment']) {
                             sh "nohup /home/carsten/install/docker/skysail/run_docker.sh website test 0.0.135 &"
                         }
+                    }
+                }
+            }
+
+            stage('waiting...') {
+                steps {
+                    script {
+                        sh "sleep 60"
                     }
                 }
             }
