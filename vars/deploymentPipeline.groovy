@@ -53,7 +53,7 @@ def call(String deployEnvironment) {
             stage('Deploy') {
                 steps {
                     timeout(1) {
-                        node {
+                        script {
                             withEnv(['JENKINS_NODE_COOKIE=dontkillDeployment']) {
                                 sh "nohup /home/carsten/install/docker/skysail/run_docker.sh website test 0.0.135"
                             }
