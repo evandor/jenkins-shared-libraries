@@ -69,7 +69,7 @@ def call(project) {
                 steps {
                     sh './gradlew skysail.server:export.server.docker'
                     sh './gradlew skysail.server.demo:export.demo.docker'
-                    sh './gradlew skysail.server.website:export.website.docker'
+                    sh './gradlew skysail.server.website:export.website'
                 }
             }
 
