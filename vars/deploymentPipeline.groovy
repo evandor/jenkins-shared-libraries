@@ -11,8 +11,7 @@ import io.skysail.jenkins.config.Environment
 
 def call(String deployEnvironment) {
 
-    env.INSTANCE_NAME
-    env.APPLICATION_KEY
+    env.APPLICATION_NAME
     env.APPLICATION_VERSION
 
     pipeline {
@@ -23,40 +22,25 @@ def call(String deployEnvironment) {
         }
 
         stages {
-            stage('Select Instance') {
+            stage('Select Application') {
                 steps {
                     stageSelectApplication()
                 }
             }
 
-           /*stage('Select Application') {
-                steps {
-                    stageSelectApplication(env.INSTANCE_NAME)
-                }
-            }*/
-
             stage('Select Version') {
                 steps {
-                    stageSelectVersion(env.INSTANCE_NAME)
+                    stageSelectVersion(env.APPLICATION_NAME)
                 }
             }
-
-            /*stage('Copy to Deployment Repository') {
-                when {
-                    expression { deployEnvironment == Environment.ABN }
-                }
-                steps {
-                    stageCopyToDeploymentRepo(env.APPLICATION_KEY, env.APPLICATION_VERSION)
-                }
-            }*/
 
             stage('Deploy') {
                 steps {
                     timeout(1) {
                         script {
                             withEnv(['JENKINS_NODE_COOKIE=dontkillDeployment']) {
-                                stageDeploy(env.INSTANCE_NAME,env.VERSION)
-                                sh "nohup /home/carsten/install/docker/skysail/run_docker.sh website test 0.0.135"
+                                stageDeploy(env.APPLICATION_NAME, deployEnvironment, env.APPLICATION_VERSION)
+                                //sh "nohup /home/carsten/install/docker/skysail/run_docker.sh website test 0.0.135"
                             }
                         }
                     }
