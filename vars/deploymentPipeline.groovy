@@ -55,6 +55,7 @@ def call(String deployEnvironment) {
                     timeout(1) {
                         script {
                             withEnv(['JENKINS_NODE_COOKIE=dontkillDeployment']) {
+                                stageDeploy(env.INSTANCE_NAME,env.VERSION)
                                 sh "nohup /home/carsten/install/docker/skysail/run_docker.sh website test 0.0.135"
                             }
                         }
