@@ -113,6 +113,13 @@ def call(project) {
                 }
             }
 
+            stage ('Gatling') {
+                steps {
+                    sh './gradlew skysail.server.demo.guitests:gatlingRun'
+                    gatlingArchive()
+                }
+            }
+
 
             stage ('Document') {
                 steps {
