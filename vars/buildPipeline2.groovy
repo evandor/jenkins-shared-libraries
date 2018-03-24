@@ -41,7 +41,15 @@ def call(project) {
                     sh "./gradlew -Pversion=${env.BUILD_VERSION} -DbuildVersion=jenkins-${env.BUILD_VERSION} --stacktrace --continue test"
                     sh "./gradlew -Pversion=${env.BUILD_VERSION} -DbuildVersion=jenkins-${env.BUILD_VERSION} testScoverage"
                     //step([$class: 'ScoveragePublisher', reportDir: 'skysail.domain/generated/scoverage', reportFile: 'scoverage.coverage.xml'])
+
+                    withSonarQubeEnv('sonar') {
+                        // requires SonarQube Scanner for Gradle 2.1+
+                        // It's important to add --info because of SONARJNKNS-281
+                        sh './gradlew --info sonarqube'
+                    }
+
                 }
+
                 post {
                     always {
                         junit "**/test-reports/test/TEST-*.xml"
