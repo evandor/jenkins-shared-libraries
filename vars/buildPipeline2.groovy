@@ -40,7 +40,7 @@ def call(project) {
                 steps {
                     sh "./gradlew -Pversion=${env.BUILD_VERSION} -DbuildVersion=jenkins-${env.BUILD_VERSION} --stacktrace --continue test"
                     sh "./gradlew -Pversion=${env.BUILD_VERSION} -DbuildVersion=jenkins-${env.BUILD_VERSION} testScoverage"
-                    step([$class: 'ScoveragePublisher', reportDir: 'skysail.domain/generated/scoverage', reportFile: 'scoverage.coverage.xml'])
+                    //step([$class: 'ScoveragePublisher', reportDir: 'skysail.domain/generated/scoverage', reportFile: 'scoverage.coverage.xml'])
                 }
                 post {
                     always {
