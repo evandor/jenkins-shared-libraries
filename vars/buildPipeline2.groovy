@@ -40,6 +40,7 @@ def call(project) {
                 steps {
                     sh "./gradlew -Pversion=${env.BUILD_VERSION} -DbuildVersion=jenkins-${env.BUILD_VERSION} --stacktrace --continue test"
                     sh "./gradlew -Pversion=${env.BUILD_VERSION} -DbuildVersion=jenkins-${env.BUILD_VERSION} reportScoverage"
+                    step([$class: 'ScoveragePublisher', reportDir: 'skysail.api/generated/reports/scoverage', reportFile: 'scoverage.xml'])
                     step([$class: 'ScoveragePublisher', reportDir: 'skysail.domain/generated/reports/scoverage', reportFile: 'scoverage.xml'])
 
                     withSonarQubeEnv('sonar') {
