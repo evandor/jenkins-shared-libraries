@@ -70,10 +70,10 @@ def call(project) {
                     withCredentials([usernamePassword(credentialsId: 'd04cfe1a-4efc-4a0a-b65b-4775a1a15a14',
                             usernameVariable: 'ACCESS_TOKEN_USERNAME',
                             passwordVariable: 'ACCESS_TOKEN_PASSWORD',)]) {
+                        sh "git remote set-url origin https://$ACCESS_TOKEN_USERNAME:$ACCESS_TOKEN_PASSWORD@github.com/evandor/skysail-server"
                         sh "git pull --tags"
                         sh "git push origin :refs/tags/${env.BUILD_VERSION}"
                         sh "git tag -m '' ${env.BUILD_VERSION}"
-                        sh "git remote set-url origin https://$ACCESS_TOKEN_USERNAME:$ACCESS_TOKEN_PASSWORD@github.com/evandor/skysail-server"
                         sh "git push --tags"
                     }
                 }
