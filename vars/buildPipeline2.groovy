@@ -150,7 +150,6 @@ def call(project) {
         }
         post {
             failure {
-                echo "failure when building..."
                 emailext body: '$DEFAULT_CONTENT',
                         recipientProviders: [
                                 [$class: 'CulpritsRecipientProvider'],

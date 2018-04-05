@@ -115,24 +115,15 @@ def call(project) {
         }
         post {
             failure {
-                echo "failure when building..."
-                // This script is used to kill pending processes of this job build, because the ProcessTreeKiller won't kill those processes
-                // when the e2e tests on start up.
-//                sh """#!/bin/sh -e
-//                    # get all processes for the given build tag, filter self process and iterate over result
-//                    grep -lis 'BUILD_TAG=${env.BUILD_TAG}' /proc/*/environ | grep -v /proc/self/environ | while read -r line; do
-//
-//                    # extract process id
-//                    PID=`echo "\$line" | cut -d\'/\' -f 3`
-//
-//                    # is process currently running
-//                    if [[ -e /proc/\$PID ]]; then
-//                      echo "Killing Process with id \$PID"
-//                      kill -9 \$PID
-//                    fi
-//                    done
-//                """
-
+                emailext body: '$DEFAULT_CONTENT',
+                        recipientProviders: [
+                                [$class: 'CulpritsRecipientProvider'],
+                                [$class: 'DevelopersRecipientProvider'],
+                                [$class: 'RequesterRecipientProvider']
+                        ],
+                        replyTo: '$DEFAULT_REPLYTO',
+                        subject: '$DEFAULT_SUBJECT',
+                        to: '$DEFAULT_RECIPIENTS'
             }
         }
     }
