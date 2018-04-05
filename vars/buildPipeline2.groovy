@@ -147,6 +147,15 @@ def call(project) {
         post {
             failure {
                 echo "failure when building..."
+                emailext body: '$DEFAULT_CONTENT',
+                        recipientProviders: [
+                                [$class: 'CulpritsRecipientProvider'],
+                                [$class: 'DevelopersRecipientProvider'],
+                                [$class: 'RequesterRecipientProvider']
+                        ],
+                        replyTo: '$DEFAULT_REPLYTO',
+                        subject: '$DEFAULT_SUBJECT',
+                        to: '$DEFAULT_RECIPIENTS'
                 // This script is used to kill pending processes of this job build, because the ProcessTreeKiller won't kill those processes
                 // when the e2e tests on start up.
 //                sh """#!/bin/sh -e
