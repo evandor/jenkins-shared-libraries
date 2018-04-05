@@ -72,7 +72,8 @@ def call(project) {
                             passwordVariable: 'ACCESS_TOKEN_PASSWORD',)]) {
                         sh "git remote set-url origin https://$ACCESS_TOKEN_USERNAME:$ACCESS_TOKEN_PASSWORD@github.com/evandor/skysail-server"
                         sh "git pull --tags"
-                        sh "git push origin :refs/tags/${env.BUILD_VERSION}"
+                        //sh "git push origin :refs/tags/${env.BUILD_VERSION}"
+                        sh "git push --force origin refs/tags/${env.BUILD_VERSION}:refs/tags/${env.BUILD_VERSION}"
                         sh "git tag -m '' ${env.BUILD_VERSION}"
                         sh "git push --tags"
                     }
