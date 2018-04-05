@@ -74,6 +74,7 @@ def call(project) {
                         sh "git pull --tags"
                         //sh "git push origin :refs/tags/${env.BUILD_VERSION}"
                         sh "git push --force origin refs/tags/${env.BUILD_VERSION}:refs/tags/${env.BUILD_VERSION}"
+                        sh "git tag -d ${env.BUILD_VERSION}"
                         sh "git tag -m '' ${env.BUILD_VERSION}"
                         sh "git push --tags"
                     }
