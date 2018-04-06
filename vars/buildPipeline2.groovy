@@ -18,7 +18,7 @@ def call(project) {
         agent any
 
         options {
-            buildDiscarder(logRotator(numToKeepStr: '10'))
+            buildDiscarder(logRotator(numToKeepStr: '20'))
         }
 
         stages {
@@ -71,8 +71,8 @@ def call(project) {
                             usernameVariable: 'ACCESS_TOKEN_USERNAME',
                             passwordVariable: 'ACCESS_TOKEN_PASSWORD',)]) {
                         sh "git remote set-url origin https://$ACCESS_TOKEN_USERNAME:$ACCESS_TOKEN_PASSWORD@github.com/evandor/skysail-server"
-                        //sh "git push --force origin refs/tags/${env.BUILD_VERSION}:refs/tags/${env.BUILD_VERSION}"
-                        //sh "git tag -d ${env.BUILD_VERSION}"
+                        sh "git push --force origin refs/tags/${env.BUILD_VERSION}:refs/tags/${env.BUILD_VERSION}"
+                        sh "git tag -d ${env.BUILD_VERSION}"
                         sh "git tag -m '' ${env.BUILD_VERSION}"
                         sh "git pull --tags"
                         sh "git push --tags"
@@ -158,23 +158,6 @@ def call(project) {
                         replyTo: '$DEFAULT_REPLYTO',
                         subject: '$DEFAULT_SUBJECT',
                         to: '$DEFAULT_RECIPIENTS'
-                // This script is used to kill pending processes of this job build, because the ProcessTreeKiller won't kill those processes
-                // when the e2e tests on start up.
-//                sh """#!/bin/sh -e
-//                    # get all processes for the given build tag, filter self process and iterate over result
-//                    grep -lis 'BUILD_TAG=${env.BUILD_TAG}' /proc/*/environ | grep -v /proc/self/environ | while read -r line; do
-//
-//                    # extract process id
-//                    PID=`echo "\$line" | cut -d\'/\' -f 3`
-//
-//                    # is process currently running
-//                    if [[ -e /proc/\$PID ]]; then
-//                      echo "Killing Process with id \$PID"
-//                      kill -9 \$PID
-//                    fi
-//                    done
-//                """
-
             }
         }
     }
