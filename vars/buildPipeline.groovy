@@ -16,94 +16,58 @@ def call(project) {
         agent any
 
         options {
-            buildDiscarder(logRotator(numToKeepStr: '10'))
+            buildDiscarder(logRotator(numToKeepStr: '20'))
         }
 
         stages {
 
             stage('Prepare') {
                 steps {
-                    stagePrepare()
+                    //stagePrepareServices()
+                    checkout scm
                 }
 
             }
 
-           /* stage('Build') {
+            /*stage('Build') {
                 steps {
                     sh "./gradlew -Pversion=${env.BUILD_VERSION} -DbuildVersion=jenkins-${env.BUILD_VERSION} --stacktrace --continue clean build"
-                    withCredentials([usernamePassword(credentialsId: '52dc175f-8512-45d2-97e6-ebec0e60b907',
+                    withCredentials([usernamePassword(credentialsId: 'd04cfe1a-4efc-4a0a-b65b-4775a1a15a14',
                             usernameVariable: 'ACCESS_TOKEN_USERNAME',
                             passwordVariable: 'ACCESS_TOKEN_PASSWORD',)]) {
+                        sh "git remote set-url origin https://$ACCESS_TOKEN_USERNAME:$ACCESS_TOKEN_PASSWORD@github.com/evandor/services"
                         sh "git tag -m '' ${env.BUILD_VERSION}"
-                        sh "git remote set-url origin https://$ACCESS_TOKEN_USERNAME:$ACCESS_TOKEN_PASSWORD@github.com/evandor/skysail-server"
+                        sh "git pull --tags"
                         sh "git push --tags"
                     }
                 }
                 post {
                     always {
-                        //junit "** /test-reports/test/TEST-*.xml"
+                        junit "**...../test-reports/test/TEST-*.xml"
                     }
                 }
-            }
+            }*/
 
-            stage('Export Jars') {
-                steps {
-                    sh './gradlew skysail.server:export.server.test'
-                    sh './gradlew skysail.server:export.server.int'
-                    sh './gradlew skysail.server.website:export.server.website'
-                }
-            }
 
-            stage ('Build Docker Images') {
-                steps {
-                    sh 'sudo ./gradlew skysail.server:runnable skysail.server:buildImage'
-                    sh 'sudo ./gradlew skysail.server.website:runnable skysail.server.website:buildImage'
-                }
-            }
-
-            stage ('Restart Containers') {
-                steps {
-                    script {
-                        sh "svn update /home/carsten/skysail/skysailconfigs/"
-                        withEnv(['JENKINS_NODE_COOKIE =dontkill']) {
-                            sh "sudo ./skysail.server/release/deployment/scripts/run_docker.sh &"
-                        }
-                        withEnv(['JENKINS_NODE_COOKIE =dontkill']) {
-                            sh "sudo ./skysail.server.website/release/deployment/scripts/run_docker_test.sh &"
-                        }
-                    }
-                }
-            }
-
-            stage ('Document') {
+            /*stage ('Document') {
                 steps {
                     //sh "./gradlew asciidoctor"
                     sh "./gradlew scaladoc"
                 }
             }*/
 
-
         }
         post {
             failure {
-                echo "failure when building..."
-                // This script is used to kill pending processes of this job build, because the ProcessTreeKiller won't kill those processes
-                // when the e2e tests on start up.
-//                sh """#!/bin/sh -e
-//                    # get all processes for the given build tag, filter self process and iterate over result
-//                    grep -lis 'BUILD_TAG=${env.BUILD_TAG}' /proc/*/environ | grep -v /proc/self/environ | while read -r line; do
-//
-//                    # extract process id
-//                    PID=`echo "\$line" | cut -d\'/\' -f 3`
-//
-//                    # is process currently running
-//                    if [[ -e /proc/\$PID ]]; then
-//                      echo "Killing Process with id \$PID"
-//                      kill -9 \$PID
-//                    fi
-//                    done
-//                """
-
+                emailext body: '$DEFAULT_CONTENT',
+                        recipientProviders: [
+                                [$class: 'CulpritsRecipientProvider'],
+                                [$class: 'DevelopersRecipientProvider'],
+                                [$class: 'RequesterRecipientProvider']
+                        ],
+                        replyTo: '$DEFAULT_REPLYTO',
+                        subject: '$DEFAULT_SUBJECT',
+                        to: '$DEFAULT_RECIPIENTS'
             }
         }
     }
