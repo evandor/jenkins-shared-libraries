@@ -43,7 +43,7 @@ def call(project) {
                 }
                 post {
                     always {
-                        junit "**/test-reports/test/TEST-*.xml"
+                        //junit "**/test-reports/test/TEST-*.xml"
                     }
                 }
             }
