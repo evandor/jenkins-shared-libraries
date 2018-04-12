@@ -48,6 +48,11 @@ def call(project) {
                 //}
             }
 
+            stage('sonar') {
+                steps {
+                    sh "./gradlew sonar"
+                }
+            }
 
             stage ('Document') {
                 steps {
