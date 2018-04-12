@@ -29,32 +29,32 @@ def call(project) {
 
             }
 
-            /*stage('Build') {
+            stage('Build') {
                 steps {
                     sh "./gradlew -Pversion=${env.BUILD_VERSION} -DbuildVersion=jenkins-${env.BUILD_VERSION} --stacktrace --continue clean build"
-                    withCredentials([usernamePassword(credentialsId: 'd04cfe1a-4efc-4a0a-b65b-4775a1a15a14',
+                    /*withCredentials([usernamePassword(credentialsId: 'd04cfe1a-4efc-4a0a-b65b-4775a1a15a14',
                             usernameVariable: 'ACCESS_TOKEN_USERNAME',
                             passwordVariable: 'ACCESS_TOKEN_PASSWORD',)]) {
                         sh "git remote set-url origin https://$ACCESS_TOKEN_USERNAME:$ACCESS_TOKEN_PASSWORD@github.com/evandor/services"
                         sh "git tag -m '' ${env.BUILD_VERSION}"
                         sh "git pull --tags"
                         sh "git push --tags"
-                    }
+                    }*/
                 }
                 post {
                     always {
-                        junit "**...../test-reports/test/TEST-*.xml"
+                        junit "**/test-reports/test/TEST-*.xml"
                     }
                 }
-            }*/
+            }
 
 
-            /*stage ('Document') {
+            stage ('Document') {
                 steps {
                     //sh "./gradlew asciidoctor"
                     sh "./gradlew scaladoc"
                 }
-            }*/
+            }
 
         }
         post {
