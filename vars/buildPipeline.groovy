@@ -41,12 +41,20 @@ def call(project) {
                         sh "git push --tags"
                     }*/
                 }
-                //post {
-                    //always {
-                        //junit "**/test-reports/test/TEST-*.xml"
-                    //}
-                //}
+                post {
+                    always {
+                        junit "**/test-reports/test/TEST-*.xml"
+                    }
+                }
             }
+
+            stage('Coverage') {
+                steps {
+                    sh "./gradlew -Pversion=${env.BUILD_VERSION} -DbuildVersion=jenkins-${env.BUILD_VERSION} --stacktrace --continue clean build"
+                    sh "./gradlew -Pversion=${env.BUILD_VERSION} -DbuildVersion=jenkins-${env.BUILD_VERSION} reportScoverage"
+                }
+            }
+
 
             stage('sonar') {
                 steps {
