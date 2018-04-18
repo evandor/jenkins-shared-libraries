@@ -62,6 +62,13 @@ def call(project) {
                 }
             }
 
+            stage ('Build Docker Images') {
+                steps {
+                    sh "./gradlew docker"
+                }
+            }
+
+
             stage ('Document') {
                 steps {
                     //sh "./gradlew asciidoctor"
