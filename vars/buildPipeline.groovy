@@ -58,13 +58,13 @@ def call(project) {
 
             stage('sonar') {
                 steps {
-                    sh "./gradlew sonar"
+                    sh "./gradlew sonar --info"
                 }
             }
 
             stage ('Build Docker Images') {
                 steps {
-                    sh "./gradlew docker"
+                    sh "./gradlew docker --info"
                 }
             }
 
