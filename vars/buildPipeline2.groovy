@@ -100,7 +100,9 @@ def call(project) {
                 steps {
                     script {
                         sh "svn update /home/carsten/skysail/skysailconfigs/"
-                        sh "svn update /home/carsten/install/docker/"
+                        //sh "svn update /home/carsten/install/docker/"
+                        sh "cd /home/carsten/install/docker/"
+                        sh "git pull --rebase"
 
                         //withEnv(['JENKINS_NODE_COOKIE =dontkill']) {
                         //    sh "./skysail.server/release/deployment/scripts/run_docker.sh &"

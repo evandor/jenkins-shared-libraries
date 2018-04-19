@@ -68,6 +68,19 @@ def call(project) {
                 }
             }
 
+            stage ('Restart Containers') {
+                steps {
+                    script {
+                        sh "cd /home/carsten/install/docker/"
+                        sh "git pull --rebase"
+
+                        withEnv(['JENKINS_NODE_COOKIE =dontkill']) {
+                            sh "/home/carsten/install/docker/services/run_docker.sh skysail-service-monitor test ${env.BUILD_VERSION} &"
+                        }
+                    }
+                }
+            }
+
 
             stage ('Document') {
                 steps {
