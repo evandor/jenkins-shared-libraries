@@ -48,7 +48,7 @@ def call(project) {
                 }*/
             }
 
-            stage('Coverage') {
+            /*stage('Coverage') {
                 steps {
                     sh "./gradlew -Pversion=${env.BUILD_VERSION} -DbuildVersion=jenkins-${env.BUILD_VERSION} --stacktrace --continue clean build"
                     sh "./gradlew -Pversion=${env.BUILD_VERSION} -DbuildVersion=jenkins-${env.BUILD_VERSION} reportScoverage"
@@ -58,9 +58,9 @@ def call(project) {
 
             stage('sonar') {
                 steps {
-                    sh "./gradlew sonar --info"
+                    sh "./gradlew sonar"
                 }
-            }
+            }*/
 
             stage ('Build Docker Images') {
                 steps {
@@ -75,7 +75,7 @@ def call(project) {
                         //sh "git pull --rebase"
 
                         withEnv(['JENKINS_NODE_COOKIE =dontkill']) {
-                            sh "/home/carsten/install/docker/services/run_docker.sh skysail-service-monitor test ${env.BUILD_VERSION} &"
+                            sh "/home/carsten/install/docker/services/run_docker.sh skysail-service-monitor test latest &"
                         }
                     }
                 }
