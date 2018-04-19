@@ -23,7 +23,7 @@ def call(project) {
 
             stage('Prepare') {
                 steps {
-                    //stagePrepareServices()
+                    stagePrepareServices()
                     checkout scm
                 }
 
