@@ -75,7 +75,7 @@ def call(project) {
                         //sh "git pull --rebase"
 
                         withEnv(['JENKINS_NODE_COOKIE =dontkill']) {
-                            sh "/home/carsten/install/docker/services/run_docker.sh skysail-service-monitor test 0.1.11 &"
+                            sh "/home/carsten/install/docker/services/run_docker.sh skysail-service-monitor test ${env.BUILD_VERSION} &"
                         }
                     }
                 }
