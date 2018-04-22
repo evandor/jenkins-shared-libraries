@@ -31,7 +31,7 @@ def call(project) {
 
             stage('Build') {
                 steps {
-                    sh "./gradlew --stacktrace --continue clean build"
+                    sh "./gradlew -DbuildVersion=${env.BUILD_VERSION} --stacktrace --continue clean build"
                     /*withCredentials([usernamePassword(credentialsId: 'd04cfe1a-4efc-4a0a-b65b-4775a1a15a14',
                             usernameVariable: 'ACCESS_TOKEN_USERNAME',
                             passwordVariable: 'ACCESS_TOKEN_PASSWORD',)]) {
@@ -48,9 +48,9 @@ def call(project) {
                 }*/
             }
 
-            /*stage('Coverage') {
+            stage('Coverage') {
                 steps {
-                    sh "./gradlew --stacktrace --continue clean build"
+                    //sh "./gradlew --stacktrace --continue clean build"
                     sh "./gradlew reportScoverage"
                 }
             }
@@ -60,7 +60,7 @@ def call(project) {
                 steps {
                     sh "./gradlew sonar"
                 }
-            }*/
+            }
 
             stage ('Build Docker Images') {
                 steps {
