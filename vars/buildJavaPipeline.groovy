@@ -79,7 +79,7 @@ def call(project) {
 
             stage('Document') {
                 steps {
-                    sh "./gradlew asciidoctor"
+                    //sh "./gradlew asciidoctor"
                     sh "./gradlew javadoc"
                 }
             }
