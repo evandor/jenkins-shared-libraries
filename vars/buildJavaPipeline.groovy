@@ -48,14 +48,6 @@ def call(project) {
                 }*/
             }
 
-            stage('Coverage') {
-                steps {
-                    //sh "./gradlew --stacktrace --continue clean build"
-                    sh "./gradlew reportScoverage"
-                }
-            }
-
-
             stage('sonar') {
                 steps {
                     sh "./gradlew sonar"
