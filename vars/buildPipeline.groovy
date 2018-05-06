@@ -52,6 +52,14 @@ def call(project) {
                 steps {
                     //sh "./gradlew --stacktrace --continue clean build"
                     sh "./gradlew reportScoverage"
+                    step([$class: 'ScoveragePublisher', reportDir: 'build/reports/scoverage', reportFile: 'scoverage.xml'])
+
+                    /*withSonarQubeEnv('sonar') {
+                        // requires SonarQube Scanner for Gradle 2.1+
+                        // It's important to add --info because of SONARJNKNS-281
+                        sh './gradlew --info sonarqube'
+                    }*/
+
                 }
             }
 
