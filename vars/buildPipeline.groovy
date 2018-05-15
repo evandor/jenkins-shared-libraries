@@ -64,11 +64,11 @@ def call(project) {
             }
 
 
-            stage('sonar') {
+            /*stage('sonar') {
                 steps {
                     sh "./gradlew sonar"
                 }
-            }
+            }*/
 
             stage ('Build Docker Images') {
                 steps {
