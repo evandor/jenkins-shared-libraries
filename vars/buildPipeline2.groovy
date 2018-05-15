@@ -43,11 +43,11 @@ def call(project) {
                     //step([$class: 'ScoveragePublisher', reportDir: 'skysail.api/generated/reports/scoverage', reportFile: 'scoverage.xml'])
                     step([$class: 'ScoveragePublisher', reportDir: 'skysail.domain/generated/reports/scoverage', reportFile: 'scoverage.xml'])
 
-                    withSonarQubeEnv('sonar') {
+                    /*withSonarQubeEnv('sonar') {
                         // requires SonarQube Scanner for Gradle 2.1+
                         // It's important to add --info because of SONARJNKNS-281
                         sh './gradlew --info sonarqube'
-                    }
+                    }*/
 
                 }
 
