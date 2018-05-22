@@ -41,11 +41,12 @@ def call(project) {
                         sh "git push --tags"
                     }*/
                 }
-                /*post {
+                post {
                     always {
-                        junit "** /test-reports/test/TEST-*.xml"
+                        //junit "**/test-reports/test/TEST-*.xml"
+                        junit "**/test-results/test/TEST-*.xml"
                     }
-                }*/
+                }
             }
 
             stage('Coverage') {
