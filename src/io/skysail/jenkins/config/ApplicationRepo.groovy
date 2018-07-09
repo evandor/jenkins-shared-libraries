@@ -9,9 +9,9 @@ class ApplicationRepo {
         applications.put("an-app", new Artifact("io.skysail", "an-app", "bundle"))
     }
 
-    static Application getApplicationByKey(key) {
+   /* static Application getApplicationByKey(key) {
         return (Application)applications.get(key);
-    }
+    }*/
 
     static Set getApplicationKeysByInstance(instance) {
         return applications.keySet().findAll {applications.get(it).hasInstance(instance)}
