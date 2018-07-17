@@ -53,7 +53,7 @@ def call(project) {
                 steps {
                     //sh "./gradlew --stacktrace --continue clean build"
                     sh "./gradlew reportScoverage"
-                    step([$class: 'ScoveragePublisher', reportDir: 'build/reports/scoverage', reportFile: 'scoverage.xml'])
+                    step([$class: 'ScoveragePublisher', reportDir: 'server/build/reports/scoverage', reportFile: 'scoverage.xml'])
 
                     /*withSonarQubeEnv('sonar') {
                         // requires SonarQube Scanner for Gradle 2.1+
@@ -64,20 +64,19 @@ def call(project) {
                 }
             }
 
-
             /*stage('sonar') {
                 steps {
                     sh "./gradlew sonar"
                 }
             }*/
 
-            stage ('Build Docker Images') {
+            stage('Build Docker Images') {
                 steps {
                     sh "./gradlew docker --info -DbuildVersion=${env.BUILD_VERSION}"
                 }
             }
 
-            stage ('Restart Containers') {
+            stage('Restart Containers') {
                 steps {
                     script {
                         //sh "cd /home/carsten/install/docker/"
@@ -94,7 +93,7 @@ def call(project) {
             }
 
 
-            stage ('Document') {
+            stage('Document') {
                 steps {
                     //sh "./gradlew asciidoctor"
                     sh "./gradlew scaladoc"
