@@ -92,6 +92,12 @@ def call(project) {
                 }
             }
 
+            stage('Gatling') {
+                steps {
+                    sh './gradlew server-loadtest:gatlingRun'
+                    gatlingArchive()
+                }
+            }
 
             stage('Document') {
                 steps {
