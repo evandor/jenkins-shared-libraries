@@ -9,9 +9,14 @@
  */
 
 def call(project, modulePath) {
+    call(project, modulePath, true)
+}
+
+def call(project, modulePath, runGatling) {
 
     env.PROJECT_NAME = project
     env.MODULE_PATH = modulePath
+    env.RUN_GATLING = runGatling
 
     pipeline {
         agent any
@@ -95,8 +100,10 @@ def call(project, modulePath) {
 
             stage('Gatling') {
                 steps {
-                    sh './gradlew server-loadtest:gatlingRun'
-                    gatlingArchive()
+                    if (env.RUN_GATLING) {
+                        sh './gradlew server-loadtest:gatlingRun'
+                        gatlingArchive()
+                    }
                 }
             }
 
