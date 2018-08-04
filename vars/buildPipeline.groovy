@@ -99,11 +99,11 @@ def call(project, modulePath, runGatling) {
             }
 
             stage('Gatling') {
+                when(env.RUN_GATLING) {
+                }
                 steps {
-                    if (env.RUN_GATLING) {
-                        sh './gradlew server-loadtest:gatlingRun'
-                        gatlingArchive()
-                    }
+                    sh './gradlew server-loadtest:gatlingRun'
+                    gatlingArchive()
                 }
             }
 
