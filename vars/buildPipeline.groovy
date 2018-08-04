@@ -8,9 +8,10 @@
  * https://wiki.jenkins-ci.org/display/JENKINS/Lockable+Resources+Plugin
  */
 
-def call(project) {
+def call(project, modulePath) {
 
     env.PROJECT_NAME = project
+    env.MODULE_PATH = modulePath
 
     pipeline {
         agent any
@@ -53,7 +54,7 @@ def call(project) {
                 steps {
                     //sh "./gradlew --stacktrace --continue clean build"
                     sh "./gradlew reportScoverage"
-                    step([$class: 'ScoveragePublisher', reportDir: 'server/build/reports/scoverage', reportFile: 'scoverage.xml'])
+                    step([$class: 'ScoveragePublisher', reportDir: env.MODULE_PATH + 'build/reports/scoverage', reportFile: 'scoverage.xml'])
 
                     /*withSonarQubeEnv('sonar') {
                         // requires SonarQube Scanner for Gradle 2.1+
