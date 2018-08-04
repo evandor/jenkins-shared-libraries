@@ -8,9 +8,9 @@
  * https://wiki.jenkins-ci.org/display/JENKINS/Lockable+Resources+Plugin
  */
 
-def call(project, modulePath) {
+/*def call(project, modulePath) {
     call(project, modulePath, true)
-}
+}*/
 
 def call(project, modulePath, runGatling) {
 
