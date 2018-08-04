@@ -99,7 +99,8 @@ def call(project, modulePath, runGatling) {
             }
 
             stage('Gatling') {
-                when(env.RUN_GATLING) {
+                when {
+                    env.RUN_GATLING
                 }
                 steps {
                     sh './gradlew server-loadtest:gatlingRun'
