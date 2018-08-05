@@ -101,7 +101,7 @@ def call(project, modulePath, runGatling) {
             stage('Gatling') {
                 when {
                     expression {
-                        return env.RUN_GATLING;
+                        return env.RUN_GATLING == true; //???
                     }
                 }
                 steps {
