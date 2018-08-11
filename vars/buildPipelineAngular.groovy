@@ -8,10 +8,6 @@
  * https://wiki.jenkins-ci.org/display/JENKINS/Lockable+Resources+Plugin
  */
 
-/*def call(project, modulePath) {
-    call(project, modulePath, true)
-}*/
-
 def call(project, modulePath, runGatling) {
 
     env.PROJECT_NAME = project
@@ -37,15 +33,7 @@ def call(project, modulePath, runGatling) {
 
             stage('Build') {
                 steps {
-                    sh "./gradlew -DbuildVersion=${env.BUILD_VERSION} --stacktrace --continue clean build"
-                    /*withCredentials([usernamePassword(credentialsId: 'd04cfe1a-4efc-4a0a-b65b-4775a1a15a14',
-                            usernameVariable: 'ACCESS_TOKEN_USERNAME',
-                            passwordVariable: 'ACCESS_TOKEN_PASSWORD',)]) {
-                        sh "git remote set-url origin https://$ACCESS_TOKEN_USERNAME:$ACCESS_TOKEN_PASSWORD@github.com/evandor/services"
-                        sh "git tag -m '' ${env.BUILD_VERSION}"
-                        sh "git pull --tags"
-                        sh "git push --tags"
-                    }*/
+                    sh "./gradlew -DbuildVersion=${env.BUILD_VERSION} --stacktrace --continue monitor-website:clean monitor-website:build"
                 }
                 post {
                     always {
@@ -55,30 +43,9 @@ def call(project, modulePath, runGatling) {
                 }
             }
 
-            stage('Coverage') {
-                steps {
-                    //sh "./gradlew --stacktrace --continue clean build"
-                    sh "./gradlew reportScoverage"
-                    step([$class: 'ScoveragePublisher', reportDir: env.MODULE_PATH + 'build/reports/scoverage', reportFile: 'scoverage.xml'])
-
-                    /*withSonarQubeEnv('sonar') {
-                        // requires SonarQube Scanner for Gradle 2.1+
-                        // It's important to add --info because of SONARJNKNS-281
-                        sh './gradlew --info sonarqube'
-                    }*/
-
-                }
-            }
-
-            /*stage('sonar') {
-                steps {
-                    sh "./gradlew sonar"
-                }
-            }*/
-
             stage('Build Docker Images') {
                 steps {
-                    sh "./gradlew docker --info -DbuildVersion=${env.BUILD_VERSION}"
+                    sh "./gradlew monitor-website:docker --info -DbuildVersion=${env.BUILD_VERSION}"
                 }
             }
 
@@ -98,7 +65,7 @@ def call(project, modulePath, runGatling) {
                 }
             }
 
-            stage('Gatling') {
+            /*stage('Gatling') {
                 when {
                     expression {
                         return env.RUN_GATLING == "true"; //???
@@ -108,14 +75,8 @@ def call(project, modulePath, runGatling) {
                     sh './gradlew monitor-server-loadtest:gatlingRun'
                     gatlingArchive()
                 }
-            }
+            }*/
 
-            stage('Document') {
-                steps {
-                    //sh "./gradlew asciidoctor"
-                    sh "./gradlew scaladoc"
-                }
-            }
 
         }
         post {
