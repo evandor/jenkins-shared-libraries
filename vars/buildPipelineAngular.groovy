@@ -38,7 +38,6 @@ def call(project, modulePath, runGatling) {
                 post {
                     always {
                         //junit "**/test-reports/test/TEST-*.xml"
-                        junit "**/test-results/test/TEST-*.xml"
                     }
                 }
             }
