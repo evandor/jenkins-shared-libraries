@@ -32,6 +32,9 @@ def call(project, modulePath, runGatling) {
             }
 
             stage('Build') {
+                when {
+                    changeset "monitor-website/**"
+                }
                 steps {
                     sh "./gradlew -DbuildVersion=${env.BUILD_VERSION} --stacktrace --continue monitor-website:clean monitor-website:build"
                 }
@@ -43,12 +46,18 @@ def call(project, modulePath, runGatling) {
             }
 
             stage('Build Docker Images') {
+                when {
+                    changeset "monitor-website/**"
+                }
                 steps {
                     sh "./gradlew monitor-website:docker --info -DbuildVersion=${env.BUILD_VERSION}"
                 }
             }
 
             stage('Restart Containers') {
+                when {
+                    changeset "monitor-website/**"
+                }
                 steps {
                     script {
                         //sh "cd /home/carsten/install/docker/"
