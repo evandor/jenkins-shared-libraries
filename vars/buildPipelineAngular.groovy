@@ -35,11 +35,11 @@ def call(project, modulePath, runGatling) {
                 steps {
                     sh "./gradlew -DbuildVersion=${env.BUILD_VERSION} --stacktrace --continue monitor-website:clean monitor-website:build"
                 }
-                post {
+                /*post {
                     always {
-                        //junit "**/test-reports/test/TEST-*.xml"
+                        //junit "** /test-reports/test/TEST-*.xml"
                     }
-                }
+                }*/
             }
 
             stage('Build Docker Images') {
