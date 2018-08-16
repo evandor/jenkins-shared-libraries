@@ -36,6 +36,9 @@ def call(project, modulePath, runGatling) {
             }
 
             stage('Build') {
+                when {
+                    changeset "monitor-server/**"
+                }
                 steps {
                     sh "./gradlew -DbuildVersion=${env.BUILD_VERSION} --stacktrace --continue clean build"
                     /*withCredentials([usernamePassword(credentialsId: 'd04cfe1a-4efc-4a0a-b65b-4775a1a15a14',
@@ -56,6 +59,9 @@ def call(project, modulePath, runGatling) {
             }
 
             stage('Coverage') {
+                when {
+                    changeset "monitor-server/**"
+                }
                 steps {
                     //sh "./gradlew --stacktrace --continue clean build"
                     sh "./gradlew reportScoverage"
@@ -77,12 +83,18 @@ def call(project, modulePath, runGatling) {
             }*/
 
             stage('Build Docker Images') {
+                when {
+                    changeset "monitor-server/**"
+                }
                 steps {
                     sh "./gradlew docker --info -DbuildVersion=${env.BUILD_VERSION}"
                 }
             }
 
             stage('Restart Containers') {
+                when {
+                    changeset "monitor-server/**"
+                }
                 steps {
                     script {
                         //sh "cd /home/carsten/install/docker/"
@@ -100,6 +112,9 @@ def call(project, modulePath, runGatling) {
 
             stage('Gatling') {
                 when {
+                    changeset "monitor-server/**"
+                }
+                when {
                     expression {
                         return env.RUN_GATLING == "true"; //???
                     }
@@ -111,6 +126,9 @@ def call(project, modulePath, runGatling) {
             }
 
             stage('Document') {
+                when {
+                    changeset "monitor-server/**"
+                }
                 steps {
                     //sh "./gradlew asciidoctor"
                     sh "./gradlew scaladoc"
