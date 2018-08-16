@@ -112,10 +112,13 @@ def call(project, modulePath, runGatling) {
 
             stage('Gatling') {
                 when {
-                    expression {
-                        return env.RUN_GATLING == "true" && changeset == "monitor-server/**" //???
-                    }
+                    changeset "monitor-server/**"
                 }
+                /*when {
+                    expression {
+                        return env.RUN_GATLING == "true"; //???
+                    }
+                }*/
                 steps {
                     sh './gradlew monitor-server-loadtest:gatlingRun'
                     gatlingArchive()
