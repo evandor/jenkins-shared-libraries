@@ -112,11 +112,8 @@ def call(project, modulePath, runGatling) {
 
             stage('Gatling') {
                 when {
-                    changeset "monitor-server/**"
-                }
-                when {
                     expression {
-                        return env.RUN_GATLING == "true"; //???
+                        return env.RUN_GATLING == "true" && changeset == "monitor-server/**" //???
                     }
                 }
                 steps {
