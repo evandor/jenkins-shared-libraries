@@ -37,7 +37,7 @@ def call(project, modulePath, runGatling) {
 
             stage('Build') {
                 when {
-                    changeset "monitor-server/**"
+                    changeset modulePath + "**"
                 }
                 steps {
                     sh "./gradlew -DbuildVersion=${env.BUILD_VERSION} --stacktrace --continue clean build"
@@ -60,7 +60,7 @@ def call(project, modulePath, runGatling) {
 
             stage('Coverage') {
                 when {
-                    changeset "monitor-server/**"
+                    changeset modulePath + "**"
                 }
                 steps {
                     //sh "./gradlew --stacktrace --continue clean build"
@@ -84,7 +84,7 @@ def call(project, modulePath, runGatling) {
 
             stage('Build Docker Images') {
                 when {
-                    changeset "monitor-server/**"
+                    changeset modulePath + "**"
                 }
                 steps {
                     sh "./gradlew docker --info -DbuildVersion=${env.BUILD_VERSION}"
@@ -93,7 +93,7 @@ def call(project, modulePath, runGatling) {
 
             stage('Restart Containers') {
                 when {
-                    changeset "monitor-server/**"
+                    changeset modulePath + "**"
                 }
                 steps {
                     script {
@@ -112,7 +112,7 @@ def call(project, modulePath, runGatling) {
 
             stage('Gatling') {
                 when {
-                    changeset "monitor-server/**"
+                    changeset modulePath + "**"
                 }
                 /*when {
                     expression {
@@ -127,7 +127,7 @@ def call(project, modulePath, runGatling) {
 
             stage('Document') {
                 when {
-                    changeset "monitor-server/**"
+                    changeset modulePath + "**"
                 }
                 steps {
                     //sh "./gradlew asciidoctor"
