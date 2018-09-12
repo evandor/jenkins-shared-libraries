@@ -36,6 +36,7 @@ def call(project, modulePath, runGatling) {
             }
 
             stage('Build') {
+                echo "checking changeset '"+modulePath+"**'"
                 when {
                     changeset "rse-server/**"
                 }
