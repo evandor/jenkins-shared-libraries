@@ -12,6 +12,7 @@
     call(project, modulePath, true)
 }*/
 
+
 def call(project, modulePath, runGatling) {
 
     env.PROJECT_NAME = project
