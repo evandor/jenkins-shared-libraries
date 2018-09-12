@@ -37,9 +37,6 @@ def call(project, modulePath, runGatling) {
             }
 
             stage('Build') {
-                when {
-                    changeset "rse-server/**"
-                }
                 steps {
                     echo "checking changeset '"+modulePath+"**'"
                     sh "./gradlew -DbuildVersion=${env.BUILD_VERSION} --stacktrace --continue clean build"
