@@ -19,6 +19,8 @@ def call(project, modulePath, runGatling) {
     env.MODULE_PATH = modulePath
     env.RUN_GATLING = runGatling
 
+    env.CHANGESET = modulePath + "**"
+
     pipeline {
         agent any
 
@@ -37,8 +39,11 @@ def call(project, modulePath, runGatling) {
             }
 
             stage('Build') {
+                when {
+                    changeset env.CHANGESET
+                }
                 steps {
-                    echo "checking changeset '"+modulePath+"**'"
+                    echo "checking changeset '"+env.CHANGESET+""
                     sh "./gradlew -DbuildVersion=${env.BUILD_VERSION} --stacktrace --continue clean build"
                     /*withCredentials([usernamePassword(credentialsId: 'd04cfe1a-4efc-4a0a-b65b-4775a1a15a14',
                             usernameVariable: 'ACCESS_TOKEN_USERNAME',
