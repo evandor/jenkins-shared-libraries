@@ -39,9 +39,7 @@ def call(project, modulePath, runGatling) {
             }
 
             stage('Build') {
-                when {
-                    changeset env.CHANGESET
-                }
+
                 steps {
                     echo "checking changeset '"+env.CHANGESET+""
                     sh "./gradlew -DbuildVersion=${env.BUILD_VERSION} --stacktrace --continue clean build"
