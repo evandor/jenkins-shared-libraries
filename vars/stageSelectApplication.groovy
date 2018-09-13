@@ -3,7 +3,7 @@ def call() {
     env.APPLICATION_NAME =
             input(id: 'env.APPLICATION_NAME', message: 'Welche Anwendung soll deployed werden?', parameters: [
                     [$class     : 'ChoiceParameterDefinition',
-                     choices    : "demo\nwebsite",
+                     choices    : ["demo\nwebsite","monitor-server"],
                      description: 'Welche Instanz soll deployed werden?', name: 'application']
             ])
 }
