@@ -43,7 +43,7 @@ def call(project, modulePath, runGatling) {
                     changeset env.CHANGESET
                 }*/
                 steps {
-                    echo "checking changeset '"+env.CHANGESET+""
+                    //echo "checking changeset '"+env.CHANGESET+""
                     sh "./gradlew -DbuildVersion=${env.BUILD_VERSION} --stacktrace --continue clean build"
                     /*withCredentials([usernamePassword(credentialsId: 'd04cfe1a-4efc-4a0a-b65b-4775a1a15a14',
                             usernameVariable: 'ACCESS_TOKEN_USERNAME',
