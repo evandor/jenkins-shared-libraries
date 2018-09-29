@@ -13,10 +13,11 @@
 }*/
 
 
-def call(project, modulePath) {
+def call(project, modulePath, runGatling) {
 
     env.PROJECT_NAME = project
     env.MODULE_PATH = modulePath
+    env.RUN_GATLING = runGatling
 
     env.CHANGESET = modulePath + "**"
 
@@ -101,6 +102,18 @@ def call(project, modulePath) {
                         sh "docker images"
 
                     }
+                }
+            }
+
+            stage('Gatling') {
+                /*when {
+                    expression {
+                        return env.RUN_GATLING == "true"; //???
+                    }
+                }*/
+                steps {
+                    sh './gradlew monitor-server-loadtest:gatlingRun'
+                    gatlingArchive()
                 }
             }
 
