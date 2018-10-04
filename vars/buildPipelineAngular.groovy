@@ -56,6 +56,7 @@ def call(project, modulePath, runGatling) {
 
                         withEnv(['JENKINS_NODE_COOKIE =dontkill']) {
                             sh "/home/carsten/install/docker/services/run_docker.sh ${project} tst ${env.BUILD_VERSION}"
+                            sh "/home/carsten/install/docker/services/copy_angular_config.sh ${project} tst ${env.BUILD_VERSION}"
                         }
                         sh "docker --version"
                         sh "docker images"
@@ -63,19 +64,6 @@ def call(project, modulePath, runGatling) {
                     }
                 }
             }
-
-            /*stage('Gatling') {
-                when {
-                    expression {
-                        return env.RUN_GATLING == "true"; //???
-                    }
-                }
-                steps {
-                    sh './gradlew monitor-server-loadtest:gatlingRun'
-                    gatlingArchive()
-                }
-            }*/
-
 
         }
         post {
