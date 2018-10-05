@@ -95,7 +95,7 @@ def call(project, modulePath) {
                         //sh "git pull --rebase"
 
                         withEnv(['JENKINS_NODE_COOKIE =dontkill']) {
-                            sh "/home/carsten/install/docker/services/run_docker.sh ${project} tst ${env.BUILD_VERSION}"
+                            sh "/home/carsten/install/docker/services/run_docker.sh ${project} test ${env.BUILD_VERSION}"
                         }
                         sh "docker --version"
                         sh "docker images"
