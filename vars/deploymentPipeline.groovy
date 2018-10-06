@@ -28,10 +28,13 @@ def call(String deployEnvironment) {
                 }
             }
 
-            stage('Select Version') {
+            stage('Select Version!') {
                 steps {
                     currentBuild.displayName = "${env.APPLICATION_NAME} xxx"
                     stageSelectVersion(env.APPLICATION_NAME)
+                    currentBuild.displayName = "${env.APPLICATION_NAME} ${env.APPLICATION_VERSION}"
+                }
+                script {
                     currentBuild.displayName = "${env.APPLICATION_NAME} ${env.APPLICATION_VERSION}"
                 }
             }
