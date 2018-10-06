@@ -25,9 +25,9 @@ def call(String deployEnvironment) {
             stage('Select Application') {
                 steps {
                     stageSelectService()
-                }
-                script {
-                    currentBuild.displayName = "${env.APPLICATION_NAME} ..."
+                    script {
+                        currentBuild.displayName = "${env.APPLICATION_NAME} ..."
+                    }
                 }
             }
 
