@@ -5,7 +5,8 @@ def call() {
                     [$class     : 'ChoiceParameterDefinition',
                      choices    : "skysail-service-monitor\n" +
                              "rse\nrse-web-client\n" +
-                             "notes\nnotes-web-client",
+                             "notes\nnotes-web-client\n" +
+                             "skysail-service-boot-admin",
                      description: 'Welche Instanz soll deployed werden?', name: 'application']
             ])
 }
