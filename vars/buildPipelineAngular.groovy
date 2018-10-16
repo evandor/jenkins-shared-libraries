@@ -33,7 +33,7 @@ def call(project, modulePath, runGatling) {
 
             stage('Build') {
                 steps {
-                    sh "./gradlew -DbuildVersion=${env.BUILD_VERSION} --stacktrace --continue clean build"
+                    sh "./gradlew -DbuildVersion=${env.BUILD_VERSION} --stacktrace --continue --debug clean build"
                 }
                 /*post {
                     always {
