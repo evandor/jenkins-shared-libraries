@@ -48,15 +48,13 @@ def call(project, modulePath) {
 
             stage('Build Docker Images') {
                 steps {
-                    sh "./gradlew docker --info -DbuildVersion=${env.BUILD_VERSION}"
+                    sh "cd ${env.MODULE_PATH} && ./gradlew docker --info -DbuildVersion=${env.BUILD_VERSION}"
                 }
             }
 
             stage('Restart Containers') {
                 steps {
                     script {
-                        //sh "cd /home/carsten/install/docker/"
-                        //sh "git pull --rebase"
 
                         withEnv(['JENKINS_NODE_COOKIE =dontkill']) {
                             sh "/home/carsten/install/docker/services/run_docker.sh ${project} test ${env.BUILD_VERSION}"
@@ -71,7 +69,7 @@ def call(project, modulePath) {
             stage('Document') {
                 steps {
                     //sh "./gradlew asciidoctor"
-                    sh "./gradlew scaladoc"
+                    sh "cd ${env.MODULE_PATH} && ./gradlew scaladoc"
                 }
             }
 
