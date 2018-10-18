@@ -38,7 +38,7 @@ def call(project, modulePath) {
             stage('Build') {
                 steps {
                     sh "cd ${env.MODULE_PATH}"
-                    sh "./gradlew -DbuildVersion=${env.BUILD_VERSION} --stacktrace --continue clean build"
+                    sh "./${env.MODULE_PATH}/gradlew -DbuildVersion=${env.BUILD_VERSION} --stacktrace --continue clean build"
                 }
                 post {
                     always {
