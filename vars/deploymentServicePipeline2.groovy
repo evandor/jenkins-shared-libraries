@@ -42,7 +42,7 @@ def call() {
                 steps {
                     stageSelectVersion(env.APPLICATION_NAME)
                     script {
-                        currentBuild.displayName = "${env.APPLICATION_NAME} ${env.APPLICATION_VERSION}"
+                        currentBuild.displayName = "${env.APPLICATION_NAME} ${env.APPLICATION_VERSION} (${env.STAGE})"
                     }
                 }
             }
@@ -52,7 +52,7 @@ def call() {
                     timeout(1) {
                         script {
                             withEnv(['JENKINS_NODE_COOKIE=dontkillDeployment']) {
-                                stageServiceDeploy(env.APPLICATION_NAME, ${env.STAGE}, env.APPLICATION_VERSION)
+                                stageServiceDeploy(env.APPLICATION_NAME, env.STAGE, env.APPLICATION_VERSION)
                             }
                         }
                     }
