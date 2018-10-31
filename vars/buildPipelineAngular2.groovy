@@ -56,14 +56,14 @@ def call(project, modulePath) {
                 }
             }
 
-            stage('E2E Tests') {
+            /*stage('E2E Tests') {
                 steps {
                     script {
                         // -Dgeb.build.baseUrl="http://localhost:4200/" chromeTest
                         sh "cd web-client-e2e-test && ./gradlew -Dgeb.build.baseUrl='http://85.25.22.126:6083/' --debug test"
                     }
                 }
-            }
+            }*/
 
         }
         post {
