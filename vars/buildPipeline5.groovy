@@ -13,7 +13,7 @@
 }*/
 
 
-def call(project, modulePath, stage) {
+def call(project, modulePath, theStage) {
 
     env.PROJECT_NAME = project
     env.MODULE_PATH = modulePath
@@ -57,7 +57,7 @@ def call(project, modulePath, stage) {
                     script {
 
                         withEnv(['JENKINS_NODE_COOKIE =dontkill']) {
-                            sh "/home/carsten/install/docker/services/run_docker.sh ${project} ${stage} ${env.BUILD_VERSION}"
+                            sh "/home/carsten/install/docker/services/run_docker.sh ${project} ${theStage} ${env.BUILD_VERSION}"
                         }
                         sh "docker --version"
                         sh "docker images"
