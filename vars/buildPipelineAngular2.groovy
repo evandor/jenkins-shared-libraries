@@ -32,6 +32,8 @@ def call(project, modulePath) {
 
             stage('Build') {
                 steps {
+                    //
+                    //sh "cd ${env.MODULE_PATH} && npm rebuild node-sass"
                     sh "cd ${env.MODULE_PATH} && ./gradlew -DbuildVersion=${env.BUILD_VERSION} --stacktrace --continue clean build"
                 }
             }
