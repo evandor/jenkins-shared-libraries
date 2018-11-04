@@ -8,7 +8,7 @@
  * https://wiki.jenkins-ci.org/display/JENKINS/Lockable+Resources+Plugin
  */
 
-def call(project, modulePath) {
+def call(project, modulePath, baseUrl) {
 
     env.PROJECT_NAME = project
     env.MODULE_PATH = modulePath
@@ -62,7 +62,7 @@ def call(project, modulePath) {
                 steps {
                     script {
                         // -Dgeb.build.baseUrl="http://localhost:4200/" chromeTest
-                        sh "cd web-client-e2e-test && ./gradlew -Dgeb.build.baseUrl='http://85.25.22.126:6083/' chromeHeadlessTest"
+                        sh "cd web-client-e2e-test && ./gradlew -Dgeb.build.baseUrl='$baseUrl' chromeHeadlessTest"
                     }
 
                     publishHTML (target: [
