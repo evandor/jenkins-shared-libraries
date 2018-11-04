@@ -64,6 +64,15 @@ def call(project, modulePath) {
                         // -Dgeb.build.baseUrl="http://localhost:4200/" chromeTest
                         sh "cd web-client-e2e-test && ./gradlew -Dgeb.build.baseUrl='http://85.25.22.126:6083/' --debug test"
                     }
+
+                    publishHTML (target: [
+                            allowMissing: false,
+                            alwaysLinkToLastBuild: false,
+                            keepAll: true,
+                            reportDir: 'reports/tests/chromeHeadlessTest',
+                            reportFiles: 'index.html',
+                            reportName: "GUI Tests"
+                    ])
                 }
             }
 
