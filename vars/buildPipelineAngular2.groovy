@@ -69,7 +69,7 @@ def call(project, modulePath, baseUrl) {
                             allowMissing: false,
                             alwaysLinkToLastBuild: false,
                             keepAll: true,
-                            reportDir: 'web-client-e2e-test/reports/tests/chromeHeadlessTest',
+                            reportDir: 'web-client-e2e-test/build/reports/tests/chromeHeadlessTest',
                             reportFiles: 'index.html',
                             reportName: "GUI Tests"
                     ])
