@@ -65,14 +65,7 @@ def call(project, modulePath, baseUrl) {
                         sh "cd web-client-e2e-test && ./gradlew -Dgeb.build.baseUrl='$baseUrl' chromeHeadlessTest"
                     }
 
-                    publishHTML (target: [
-                            allowMissing: false,
-                            alwaysLinkToLastBuild: false,
-                            keepAll: true,
-                            reportDir: 'web-client-e2e-test/build/reports/tests/chromeHeadlessTest',
-                            reportFiles: 'index.html',
-                            reportName: "GUI Tests"
-                    ])
+
                 }
             }
 
@@ -89,6 +82,14 @@ def call(project, modulePath, baseUrl) {
                         subject: '$DEFAULT_SUBJECT',
                         to: '$DEFAULT_RECIPIENTS'
             }
+            publishHTML (target: [
+                    allowMissing: false,
+                    alwaysLinkToLastBuild: false,
+                    keepAll: true,
+                    reportDir: 'web-client-e2e-test/build/reports/tests/chromeHeadlessTest',
+                    reportFiles: 'index.html',
+                    reportName: "GUI Tests"
+            ])
         }
     }
 }
