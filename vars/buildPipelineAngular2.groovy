@@ -15,7 +15,7 @@ def publishHTMLReports(reportName) {
             keepAll              : true,
             reportDir            : 'web-client-e2e-test/build/reports/tests/chromeHeadlessTest',
             reportFiles          : 'index.html',
-            reportName           : $reportName
+            reportName           : reportName
     ])
 }
 
