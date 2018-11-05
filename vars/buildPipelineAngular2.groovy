@@ -71,17 +71,15 @@ def call(project, modulePath, baseUrl) {
 
             stage('GUI Tests') {
                 steps {
-                    step {
+                    script {
                         try {
-                            script {
-                                // -Dgeb.build.baseUrl="http://localhost:4200/" chromeTest
-                                sh "cd web-client-e2e-test && ./gradlew -Dgeb.build.baseUrl='$baseUrl' chromeHeadlessTest"
-                            }
+                            // -Dgeb.build.baseUrl="http://localhost:4200/" chromeTest
+                            sh "cd web-client-e2e-test && ./gradlew -Dgeb.build.baseUrl='$baseUrl' chromeHeadlessTest"
                         } finally {
                             publishHTMLReports('GUI Tests')
                         }
-
                     }
+
                 }
             }
 
