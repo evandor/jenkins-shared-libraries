@@ -8,6 +8,17 @@
  * https://wiki.jenkins-ci.org/display/JENKINS/Lockable+Resources+Plugin
  */
 
+def publishHTMLReports(reportName) {
+    publishHTML (target: [
+            allowMissing: false,
+            alwaysLinkToLastBuild: false,
+            keepAll: true,
+            reportDir: 'web-client-e2e-test/build/reports/tests/chromeHeadlessTest',
+            reportFiles: 'index.html',
+            reportName: $reportName
+    ])
+}
+
 def call(project, modulePath, baseUrl) {
 
     env.PROJECT_NAME = project
@@ -60,9 +71,13 @@ def call(project, modulePath, baseUrl) {
 
             stage('GUI Tests') {
                 steps {
-                    script {
+                    try {
+                      script {
                         // -Dgeb.build.baseUrl="http://localhost:4200/" chromeTest
                         sh "cd web-client-e2e-test && ./gradlew -Dgeb.build.baseUrl='$baseUrl' chromeHeadlessTest"
+                      }
+                    } finally {
+                        publishHTMLReports('GUI Tests')
                     }
 
 
@@ -82,14 +97,6 @@ def call(project, modulePath, baseUrl) {
                         subject: '$DEFAULT_SUBJECT',
                         to: '$DEFAULT_RECIPIENTS'
             }
-            publishHTML (target: [
-                    allowMissing: false,
-                    alwaysLinkToLastBuild: false,
-                    keepAll: true,
-                    reportDir: 'web-client-e2e-test/build/reports/tests/chromeHeadlessTest',
-                    reportFiles: 'index.html',
-                    reportName: "GUI Tests"
-            ])
         }
     }
 }
