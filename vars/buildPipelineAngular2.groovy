@@ -9,13 +9,13 @@
  */
 
 def publishHTMLReports(reportName) {
-    publishHTML (target: [
-            allowMissing: false,
+    publishHTML(target: [
+            allowMissing         : false,
             alwaysLinkToLastBuild: false,
-            keepAll: true,
-            reportDir: 'web-client-e2e-test/build/reports/tests/chromeHeadlessTest',
-            reportFiles: 'index.html',
-            reportName: $reportName
+            keepAll              : true,
+            reportDir            : 'web-client-e2e-test/build/reports/tests/chromeHeadlessTest',
+            reportFiles          : 'index.html',
+            reportName           : $reportName
     ])
 }
 
@@ -71,16 +71,17 @@ def call(project, modulePath, baseUrl) {
 
             stage('GUI Tests') {
                 steps {
-                    try {
-                      script {
-                        // -Dgeb.build.baseUrl="http://localhost:4200/" chromeTest
-                        sh "cd web-client-e2e-test && ./gradlew -Dgeb.build.baseUrl='$baseUrl' chromeHeadlessTest"
-                      }
-                    } finally {
-                        publishHTMLReports('GUI Tests')
+                    step {
+                        try {
+                            script {
+                                // -Dgeb.build.baseUrl="http://localhost:4200/" chromeTest
+                                sh "cd web-client-e2e-test && ./gradlew -Dgeb.build.baseUrl='$baseUrl' chromeHeadlessTest"
+                            }
+                        } finally {
+                            publishHTMLReports('GUI Tests')
+                        }
+
                     }
-
-
                 }
             }
 
