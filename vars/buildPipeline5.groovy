@@ -52,6 +52,19 @@ def call(project, modulePath, theStage) {
                 }
             }
 
+            stage ('Push 2 Docker.io') {
+                steps {
+                    sh "docker --version"
+                    sh "docker images"
+                    withCredentials([usernamePassword(credentialsId: 'bf66749d-c1bc-4841-a61c-83bf3f61e166',
+                            usernameVariable: 'DOCKER_USERNAME',
+                            passwordVariable: 'DOCKER_PASSWORD',)]) {
+                        sh "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD"
+                        sh "docker push $DOCKER_USERNAME/$project:${env.BUILD_VERSION}"
+                    }
+                }
+            }
+
             stage('Restart Containers') {
                 steps {
                     script {
