@@ -74,17 +74,7 @@ def call(project) {
                 }
             }
 
-            stage ('Restart Remote Container (test)') {
-                steps{
-                    sshagent(credentials : ['use-the-id-from-credential-generated-by-jenkins']) {
-                        sh 'ssh -o StrictHostKeyChecking=no user@hostname.com uptime'
-                        sh 'ssh -v user@hostname.com'
-                        sh 'scp ./source/filename user@hostname.com:/remotehost/target'
-                    }
-                }
-            }
-
-           /* stage('Restart Containers') {
+            stage('Restart Containers') {
                 steps {
                     script {
                         //sh "cd /home/carsten/install/docker/"
@@ -98,7 +88,7 @@ def call(project) {
 
                     }
                 }
-            }*/
+            }
 
 
             stage('Document') {
