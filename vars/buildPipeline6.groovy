@@ -72,6 +72,7 @@ def call(project, modulePath, theStage) {
                     sshagent(credentials : ['sailor1']) {
                         // ${project} ${theStage} ${env.BUILD_VERSION}
                         sh 'ssh -o BatchMode=yes -o StrictHostKeyChecking=no carsten@185.183.96.103 uptime'
+                        sh "ssh -o BatchMode=yes -o StrictHostKeyChecking=no carsten@185.183.96.103 docker run --name ${project}-${stage}"
                         sh "ssh -o BatchMode=yes -o StrictHostKeyChecking=no carsten@185.183.96.103 docker run --name ${project}-${stage} --restart on-failure:1 --dns 85.25.128.10 -d -t -e spring.profiles.active=${stage} -e config.resource=/${stage}.conf -p 6003:8183 evandor/${project}:${version}"
                         //sh 'ssh -v user@hostname.com'
                         //sh 'scp ./source/filename user@hostname.com:/remotehost/target'
