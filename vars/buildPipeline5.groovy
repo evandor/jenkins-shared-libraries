@@ -70,7 +70,7 @@ def call(project, modulePath, theStage) {
                 steps{
                     // see https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/
                     sshagent(credentials : ['sailor1']) {
-                        sh 'ssh -o StrictHostKeyChecking=no carsten@185.183.96.103 uptime'
+                        sh 'ssh -o BatchMode=yes -o StrictHostKeyChecking=no carsten@185.183.96.103 uptime'
                         //sh 'ssh -v user@hostname.com'
                         //sh 'scp ./source/filename user@hostname.com:/remotehost/target'
                     }
