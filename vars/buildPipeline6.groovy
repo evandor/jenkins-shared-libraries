@@ -71,7 +71,8 @@ def call(project, modulePath, theStage) {
                     // see https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/
                     sshagent(credentials : ['sailor1']) {
                         // ${project} ${theStage} ${env.BUILD_VERSION}
-                        sh 'ssh -o StrictHostKeyChecking=no carsten@185.183.96.103 uptime'
+                        sh 'ssh -o StrictHostKeyChecking=no carsten@185.183.96.103 uptime ${project}'
+                        sh "ssh -o StrictHostKeyChecking=no carsten@185.183.96.103 uptime ${project}"
                         sh """
                             ssh -o BatchMode=yes -o StrictHostKeyChecking=no carsten@185.183.96.103 docker run --name ${project}-${stage}
                            """
