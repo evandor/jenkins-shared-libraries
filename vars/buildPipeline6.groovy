@@ -69,8 +69,10 @@ def call(project, modulePath, theStage) {
             stage ('Restart Remote Container (test)') {
                 steps{
                     // see https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/
+                    // https://stackoverflow.com/questions/37603621/jenkins-sudo-no-tty-present-and-no-askpass-program-specified-with-nopasswd
                     sshagent(credentials : ['sailor1']) {
                         sh 'ssh -o StrictHostKeyChecking=no carsten@185.183.96.103 uptime ${project}'
+                        sh 'ssh -o StrictHostKeyChecking=no carsten@185.183.96.103 whoami'
                         sh "ssh -o StrictHostKeyChecking=no carsten@185.183.96.103 dockerRun  ${project} ${theStage} ${env.BUILD_VERSION}"
                     }
                 }
