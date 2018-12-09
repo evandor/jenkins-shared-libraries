@@ -46,16 +46,26 @@ def call(project, modulePath, baseUrl) {
                 }
             }
 
-            stage('Restart Containers') {
+            stage ('Push 2 Docker.io') {
                 steps {
-                    script {
+                    sh "docker --version"
+                    withCredentials([usernamePassword(credentialsId: 'bf66749d-c1bc-4841-a61c-83bf3f61e166',
+                            usernameVariable: 'DOCKER_USERNAME',
+                            passwordVariable: 'DOCKER_PASSWORD',)]) {
+                        sh "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD"
+                        sh "docker push $DOCKER_USERNAME/$project:${env.BUILD_VERSION}"
+                    }
+                }
+            }
 
-                        withEnv(['JENKINS_NODE_COOKIE =dontkill']) {
-                            sh "/home/carsten/install/docker/services/run_docker.sh ${project} test ${env.BUILD_VERSION}"
-                        }
-                        sh "docker --version"
-                        sh "docker images"
-
+            stage ('Restart Remote Container (test)') {
+                steps{
+                    // see https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/
+                    // https://stackoverflow.com/questions/37603621/jenkins-sudo-no-tty-present-and-no-askpass-program-specified-with-nopasswd
+                    sshagent(credentials : ['sailor1']) {
+                        sh 'ssh -o StrictHostKeyChecking=no carsten@185.183.96.103 uptime ${project}'
+                        sh 'ssh -o StrictHostKeyChecking=no carsten@185.183.96.103 whoami'
+                        sh "ssh -o StrictHostKeyChecking=no carsten@185.183.96.103 dockerRun  ${project} test ${env.BUILD_VERSION}"
                     }
                 }
             }
