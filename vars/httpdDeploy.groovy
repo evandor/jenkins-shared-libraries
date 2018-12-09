@@ -22,7 +22,7 @@ def call(user, target) {
                     sshagent(credentials : ['sailor1']) {
                         sh "ssh -o StrictHostKeyChecking=no ${user}@${target} uptime"
                         sh "scp -o StrictHostKeyChecking=no -i '/root/.ssh/skysail.pem' -r aws/ec2-34-246-151-3/apache/conf.d ${user}@${target}:/home/ec2-user/jenkinstarget/apache/"
-                        sh "sudo service httpd restart"
+                        sh "ssh -o StrictHostKeyChecking=no ${user}@${target} service httpd restart"
                     }
                 }
             }
