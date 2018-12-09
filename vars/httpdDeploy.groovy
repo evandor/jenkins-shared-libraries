@@ -20,7 +20,7 @@ def call(user, target) {
             stage ('Copy dockerRun to target...') {
                 steps{
                     sshagent(credentials : ['sailor1']) {
-                        sh "ssh -o StrictHostKeyChecking=no ec2-user@ec2-34-246-151-3.eu-west-1.compute.amazonaws.com uptime ${project}"
+                        sh "ssh -o StrictHostKeyChecking=no ec2-user@ec2-34-246-151-3.eu-west-1.compute.amazonaws.com uptime"
                         sh "ssh -o StrictHostKeyChecking=no ec2-user@ec2-34-246-151-3.eu-west-1.compute.amazonaws.com uptime whoami"
                         //sh 'scp -o StrictHostKeyChecking=no docker/dockerRun carsten@185.183.96.103:/home/carsten/bin/dockerRun'
                     }
