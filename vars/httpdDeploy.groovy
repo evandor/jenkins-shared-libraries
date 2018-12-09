@@ -17,7 +17,7 @@ def call(user, target) {
 
             }
 
-            stage ("Copy dockerRun to $target") {
+            stage ('Copy dockerRun to target...') {
                 steps{
                     sshagent(credentials : ['aws-ec2-34-246-151-3']) {
                         sh "ssh -o StrictHostKeyChecking=no $user@$target uptime ${project}"
