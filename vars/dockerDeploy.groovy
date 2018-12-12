@@ -1,4 +1,4 @@
-def call(user, target) {
+def call(user1, target1, user2, target2) {
 
     pipeline {
         agent any
@@ -20,9 +20,14 @@ def call(user, target) {
             stage ('Copy dockerRun to target') {
                 steps{
                     sshagent(credentials : ['sailor1']) {
-                        sh "ssh -o StrictHostKeyChecking=no ${user}@${target} uptime"
-                        sh "ssh -o StrictHostKeyChecking=no ${user}@${target} whoami"
-                        sh "scp -o StrictHostKeyChecking=no docker/dockerRun ${user}@${target}:/home/${user}/bin/dockerRun"
+                        sh "ssh -o StrictHostKeyChecking=no ${user1}@${target1} uptime"
+                        sh "ssh -o StrictHostKeyChecking=no ${user1}@${target1} whoami"
+                        sh "scp -o StrictHostKeyChecking=no docker/dockerRun ${user1}@${target1}:/home/${user1}/bin/dockerRun"
+
+                        sh "ssh -o StrictHostKeyChecking=no ${user2}@${target2} uptime"
+                        sh "ssh -o StrictHostKeyChecking=no ${user2}@${target2} whoami"
+                        sh "scp -o StrictHostKeyChecking=no docker/dockerRun ${user2}@${target2}:/home/${user2}/bin/dockerRun"
+
                     }
                 }
             }
