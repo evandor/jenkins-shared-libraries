@@ -36,7 +36,7 @@ def call(project) {
 
             stage('Build') {
                 steps {
-                    sh "cd ${env.MODULE_PATH} && ./gradlew -DbuildVersion=${env.BUILD_VERSION} --stacktrace --continue clean build"
+                    sh "./gradlew -DbuildVersion=${env.BUILD_VERSION} --stacktrace --continue clean build"
                 }
                 post {
                     always {
@@ -48,7 +48,7 @@ def call(project) {
             stage('Document') {
                 steps {
                     //sh "./gradlew asciidoctor"
-                    sh "cd ${env.MODULE_PATH} && ./gradlew scaladoc"
+                    sh "./gradlew scaladoc"
                 }
             }
 
