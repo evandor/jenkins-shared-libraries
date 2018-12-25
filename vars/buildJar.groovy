@@ -38,11 +38,11 @@ def call(project) {
                 steps {
                     sh "./gradlew -DbuildVersion=${env.BUILD_VERSION} --stacktrace --continue clean build"
                 }
-                post {
+                /*post {
                     always {
                         junit "**/test-results/test/TEST-*.xml"
                     }
-                }
+                }*/
             }
 
             stage('Document') {
