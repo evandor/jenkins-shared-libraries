@@ -52,6 +52,12 @@ def call(project) {
                 }
             }
 
+            stage('Publish') {
+                steps {
+                    sh "./gradlew -DbuildVersion=${env.BUILD_VERSION} --stacktrace publish"
+                }
+            }
+
         }
         post {
             failure {
