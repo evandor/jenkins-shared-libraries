@@ -73,7 +73,7 @@ def call(project, modulePath, theStage) {
                     sshagent(credentials : ['sailor1']) {
                         sh 'ssh -o StrictHostKeyChecking=no carsten@185.183.96.103 uptime ${project}'
                         sh 'ssh -o StrictHostKeyChecking=no carsten@185.183.96.103 whoami'
-                        sh "ssh -o StrictHostKeyChecking=no carsten@185.183.96.103 dockerRun  ${project} ${theStage} ${env.BUILD_VERSION}"
+                        sh "ssh -o StrictHostKeyChecking=no carsten@185.183.96.103 dockerRun ${project} ${theStage} ${env.BUILD_VERSION}"
                     }
                 }
             }
