@@ -20,6 +20,7 @@ def call() {
             stage('Copy files...') {
                 steps {
                     sh "cp india032/crontab/cert-renew.sh /home/carsten/bin/cert-renew.sh"
+                    sh "chmod 775 /home/carsten/bin/cert-renew.sh"
                 }
             }
 
