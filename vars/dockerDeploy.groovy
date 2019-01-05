@@ -26,7 +26,7 @@ def call(user1, target1, user2, target2) {
                         // target1
                         sh "ssh -o StrictHostKeyChecking=no ${user1}@${target1} uptime"
                         sh "ssh -o StrictHostKeyChecking=no ${user1}@${target1} whoami"
-                        sh "ssh -o StrictHostKeyChecking=no ${user2}@${target2} mkdir /home/${user1}/bin"
+                        sh "ssh -o StrictHostKeyChecking=no ${user1}@${target1} mkdir /home/${user1}/bin"
                         sh "scp -o StrictHostKeyChecking=no docker/dockerRun ${user1}@${target1}:/home/${user1}/bin/dockerRun"
 
                         // target2
