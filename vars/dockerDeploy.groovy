@@ -1,5 +1,8 @@
 def call(user1, target1, user2, target2) {
 
+    // jenkins job: http://jenkins.skysail.io/job/infrastructure-docker/
+    // deploys dockerRun on all machines
+
     pipeline {
         agent any
 
@@ -20,13 +23,17 @@ def call(user1, target1, user2, target2) {
             stage ('Copy dockerRun to targets') {
                 steps{
                     sshagent(credentials : ['sailor1']) {
+                        // target1
                         sh "ssh -o StrictHostKeyChecking=no ${user1}@${target1} uptime"
                         sh "ssh -o StrictHostKeyChecking=no ${user1}@${target1} whoami"
                         sh "scp -o StrictHostKeyChecking=no docker/dockerRun ${user1}@${target1}:/home/${user1}/bin/dockerRun"
 
-                        //sh "ssh -o StrictHostKeyChecking=no ${user2}@${target2} uptime"
-                        //sh "ssh -o StrictHostKeyChecking=no ${user2}@${target2} whoami"
-                        //sh "scp -o StrictHostKeyChecking=no docker/dockerRun ${user2}@${target2}:/home/${user2}/bin/dockerRun"
+                        // target2
+                        sh "ssh -o StrictHostKeyChecking=no ${user2}@${target2} uptime"
+                        sh "ssh -o StrictHostKeyChecking=no ${user2}@${target2} whoami"
+                        sh "scp -o StrictHostKeyChecking=no docker/dockerRun ${user1}@${target1}:/home/${user1}/bin/dockerRun"
+
+                        // local machine
                         sh "cp docker/dockerRun /home/carsten/bin/dockerRun"
 
                     }
