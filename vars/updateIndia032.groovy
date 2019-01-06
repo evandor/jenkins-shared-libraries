@@ -31,7 +31,7 @@ def call() {
                 steps{
                     sshagent(credentials : ['sailor1']) {
                         sh "ssh -o StrictHostKeyChecking=no ${user}@${target} uptime"
-                        //sh "cp -r india032/sites-available/ /etc/apache2"
+                        sh "cp -r india032/sites-available/ /etc/apache2"
                         //sh "sudo service apache2 reload" -- cannot call from docker container
                     }
 
