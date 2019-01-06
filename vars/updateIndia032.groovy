@@ -27,7 +27,7 @@ def call() {
             stage ('Copy apache files...') {
                 steps{
                     sh "cp -r india032/sites-available/ /etc/apache2"
-                    sh "sudo services apache2 reload"
+                    sh "sudo service apache2 reload"
                 }
             }
 
