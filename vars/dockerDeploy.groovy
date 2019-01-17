@@ -1,10 +1,19 @@
-def call(user1, target1, user2, target2) {
+def call() {
 
     // jenkins job: http://jenkins.skysail.io/job/infrastructure-docker/
     // deploys dockerRun on all machines
 
     pipeline {
         agent any
+
+        user1 = "carsten"
+        target1 = "185.183.96.103"
+
+        user2 = "ec2-user"
+        target2 = "ec2-34-246-151-3.eu-west-1.compute.amazonaws.com"
+
+        user3 = "ec2-user"
+        target3 = "ec2-63-34-158-91.eu-west-1.compute.amazonaws.com"
 
         options {
             buildDiscarder(logRotator(numToKeepStr: '20'))
@@ -34,6 +43,12 @@ def call(user1, target1, user2, target2) {
                         sh "ssh -o StrictHostKeyChecking=no ${user2}@${target2} whoami"
                         sh "ssh -o StrictHostKeyChecking=no ${user2}@${target2} mkdir -p /home/${user2}/bin"
                         sh "scp -o StrictHostKeyChecking=no docker/dockerRun ${user2}@${target2}:/home/${user2}/bin/dockerRun"
+
+                        // target3
+                        sh "ssh -o StrictHostKeyChecking=no ${user3}@${target3} uptime"
+                        sh "ssh -o StrictHostKeyChecking=no ${user3}@${target3} whoami"
+                        sh "ssh -o StrictHostKeyChecking=no ${user3}@${target3} mkdir -p /home/${user3}/bin"
+                        sh "scp -o StrictHostKeyChecking=no docker/dockerRun ${user3}@${target3}:/home/${user3}/bin/dockerRun"
 
                         // local machine
                         sh "cp docker/dockerRun /home/carsten/bin/dockerRun"
