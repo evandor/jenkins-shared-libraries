@@ -3,17 +3,18 @@ def call() {
     // jenkins job: http://jenkins.skysail.io/job/infrastructure-docker/
     // deploys dockerRun on all machines
 
+    user1 = "carsten"
+    target1 = "185.183.96.103"
+
+    user2 = "ec2-user"
+    target2 = "ec2-34-246-151-3.eu-west-1.compute.amazonaws.com"
+
+    user3 = "ec2-user"
+    target3 = "ec2-63-34-158-91.eu-west-1.compute.amazonaws.com"
+
     pipeline {
         agent any
 
-        user1 = "carsten"
-        target1 = "185.183.96.103"
-
-        user2 = "ec2-user"
-        target2 = "ec2-34-246-151-3.eu-west-1.compute.amazonaws.com"
-
-        user3 = "ec2-user"
-        target3 = "ec2-63-34-158-91.eu-west-1.compute.amazonaws.com"
 
         options {
             buildDiscarder(logRotator(numToKeepStr: '20'))
