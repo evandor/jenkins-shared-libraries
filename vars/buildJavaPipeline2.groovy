@@ -13,8 +13,11 @@ def call(project) {
     env.PROJECT_NAME = project
     //user = "ec2-user"
     //target = "ec2-34-246-151-3.eu-west-1.compute.amazonaws.com"
-    user = "carsten"
-    target = "185.183.96.103"
+    //user = "carsten"
+    //target = "185.183.96.103"
+
+    user = "ec2-user"
+    target = "ec2-63-34-158-91.eu-west-1.compute.amazonaws.com"
 
     pipeline {
         agent any
