@@ -92,7 +92,8 @@ def call(project, modulePath, theStage) {
             }
             stage('Publish Asciidoc') {
                 steps {
-                    publishHTML([allowMissing: false,
+                    publishHTML([reportTitles: 'test',
+                                 allowMissing: false,
                                  alwaysLinkToLastBuild: true,
                                  keepAll: true,
                                  reportDir: 'docs/html5',
