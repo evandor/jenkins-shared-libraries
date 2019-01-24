@@ -73,6 +73,14 @@ def call(project, modulePath, baseUrl) {
 
         }
         post {
+            publishHTML([allowMissing: false,
+                         alwaysLinkToLastBuild: true,
+                         keepAll: true,
+                         reportDir: 'docs/html5',
+                         reportFiles: 'monicat-backend.html',
+                         reportName: 'Docs'
+            ])
+
             failure {
                 emailext body: '$DEFAULT_CONTENT',
                         recipientProviders: [
