@@ -69,17 +69,20 @@ def call(project, modulePath, baseUrl) {
                     }
                 }
             }
+            stage('Publish Asciidoc') {
+                steps {
+                    publishHTML([allowMissing: false,
+                                 alwaysLinkToLastBuild: true,
+                                 keepAll: true,
+                                 reportDir: 'docs/html5',
+                                 reportFiles: 'monicat-backend.html',
+                                 reportName: 'Docs'
+                    ])
 
-
+                }
+            }
         }
         post {
-            publishHTML([allowMissing: false,
-                         alwaysLinkToLastBuild: true,
-                         keepAll: true,
-                         reportDir: 'docs/html5',
-                         reportFiles: 'monicat-backend.html',
-                         reportName: 'Docs'
-            ])
 
             failure {
                 emailext body: '$DEFAULT_CONTENT',
