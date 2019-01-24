@@ -13,7 +13,7 @@
 }*/
 
 
-def call(project, modulePath, theStage, user, target) {
+def call(project, modulePath, theStage) {
 
     env.PROJECT_NAME = project
     env.MODULE_PATH = modulePath
@@ -87,7 +87,7 @@ def call(project, modulePath, theStage, user, target) {
             stage('Document') {
                 steps {
                     //sh "./gradlew asciidoctor"
-                    sh "cd ${env.MODULE_PATH} && ./gradlew scaladoc"
+                    sh "cd ${env.MODULE_PATH} && ./gradlew scaladoc asciidoc"
                 }
             }
 
