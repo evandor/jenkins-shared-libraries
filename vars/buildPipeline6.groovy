@@ -90,6 +90,19 @@ def call(project, modulePath, theStage) {
                     sh "cd ${env.MODULE_PATH} && ./gradlew scaladoc asciidoc"
                 }
             }
+            stage('Publish Asciidoc') {
+                steps {
+                    publishHTML([allowMissing: false,
+                                 alwaysLinkToLastBuild: true,
+                                 keepAll: true,
+                                 reportDir: 'docs/html5',
+                                 reportFiles: 'monicat-backend.html',
+                                 reportName: 'Docs'
+                    ])
+
+                }
+            }
+
 
         }
         post {
