@@ -97,7 +97,7 @@ def call(project, modulePath, theStage) {
                                  alwaysLinkToLastBuild: true,
                                  keepAll: true,
                                  reportDir: 'monicat-backend/build/docs/html5',
-                                 reportFiles: 'monicat-backend.html',
+                                 reportFiles: 'monicat-backend.html,api-guide.html',
                                  reportName: 'Docs'
                     ])
 
