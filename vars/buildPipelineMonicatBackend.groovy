@@ -92,7 +92,7 @@ def call(project, modulePath, theStage) {
             }
             stage('Publish Asciidoc') {
                 steps {
-                    publishHTML([reportTitles: 'test',
+                    publishHTML([reportTitles: 'Documentation',
                                  allowMissing: false,
                                  alwaysLinkToLastBuild: true,
                                  keepAll: true,
