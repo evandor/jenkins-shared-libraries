@@ -13,11 +13,11 @@ def call(project) {
     env.PROJECT_NAME = project
     //user = "ec2-user"
     //target = "ec2-34-246-151-3.eu-west-1.compute.amazonaws.com"
-    //user = "carsten"
-    //target = "185.183.96.103"
+    user = "carsten"
+    target = "185.183.96.103"
 
-    user = "ec2-user"
-    target = "ec2-63-34-158-91.eu-west-1.compute.amazonaws.com"
+    //user = "ec2-user"
+    //target = "ec2-63-34-158-91.eu-west-1.compute.amazonaws.com"
 
     pipeline {
         agent any
@@ -75,7 +75,7 @@ def call(project) {
                 }
             }
 
-            stage('Start container on AWS') {
+           /* stage('Start container on AWS') {
                 steps{
                     sshagent(credentials : ['sailor1']) {
                         sh "ssh -o StrictHostKeyChecking=no ${user}@${target} uptime"
@@ -85,20 +85,18 @@ def call(project) {
                         //sh "ssh -o StrictHostKeyChecking=no ${user}@${target} sudo service httpd restart"
                     }
                 }
+            }*/
 
-                /*steps {
-                    script {
-                        //sh "cd /home/carsten/install/docker/"
-                        //sh "git pull --rebase"
+            stage('Start container on HostSailor') {
+                steps{
+                    sshagent(credentials : ['sailor1']) {
+                        sh "ssh -o StrictHostKeyChecking=no ${user}@${target} uptime"
+                        sh "ssh -o StrictHostKeyChecking=no ${user}@${target} /home/${user}/bin/dockerRun ${project} prod ${env.BUILD_VERSION}"
 
-                        withEnv(['JENKINS_NODE_COOKIE =dontkill']) {
-                            sh "/home/carsten/install/docker/services/run_docker.sh ${project} test ${env.BUILD_VERSION}"
-                        }
-                        sh "docker --version"
-                        sh "docker images"
-
+                        //sh "scp -o StrictHostKeyChecking=no -i '/root/.ssh/skysail.pem' -r aws/ec2-34-246-151-3/apache/conf.d ${user}@${target}:/home/ec2-user/jenkinstarget/apache/"
+                        //sh "ssh -o StrictHostKeyChecking=no ${user}@${target} sudo service httpd restart"
                     }
-                }*/
+                }
             }
 
 
