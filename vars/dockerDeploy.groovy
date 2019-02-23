@@ -46,10 +46,10 @@ def call() {
                         sh "scp -o StrictHostKeyChecking=no docker/dockerRun ${user2}@${target2}:/home/${user2}/bin/dockerRun"
 
                         // target3
-                        sh "ssh -o StrictHostKeyChecking=no ${user3}@${target3} uptime"
-                        sh "ssh -o StrictHostKeyChecking=no ${user3}@${target3} whoami"
-                        sh "ssh -o StrictHostKeyChecking=no ${user3}@${target3} mkdir -p /home/${user3}/bin"
-                        sh "scp -o StrictHostKeyChecking=no docker/dockerRun ${user3}@${target3}:/home/${user3}/bin/dockerRun"
+                        //sh "ssh -o StrictHostKeyChecking=no ${user3}@${target3} uptime"
+                        //sh "ssh -o StrictHostKeyChecking=no ${user3}@${target3} whoami"
+                        //sh "ssh -o StrictHostKeyChecking=no ${user3}@${target3} mkdir -p /home/${user3}/bin"
+                        //sh "scp -o StrictHostKeyChecking=no docker/dockerRun ${user3}@${target3}:/home/${user3}/bin/dockerRun"
 
                         // local machine
                         sh "cp docker/dockerRun /home/carsten/bin/dockerRun"
