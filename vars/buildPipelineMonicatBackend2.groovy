@@ -23,6 +23,9 @@ def call(project, modulePath, theStage) {
 
         options {
             buildDiscarder(logRotator(numToKeepStr: '20'))
+            sidebarLinks([
+                [displayName: 'Test Installation', iconFileName: 'help', urlName: 'http://monicat-backend.skysail.io']
+            ])
         }
 
         stages {
@@ -71,6 +74,14 @@ def call(project, modulePath, theStage) {
                     sh "/home/carsten/bin/dockerRun ${project} ${theStage} ${env.BUILD_VERSION}"
                 }
             }
+
+            /*stage ('Deployment Prod') {
+                steps{
+                    stageProceedToProd(env.CONTINUE_TO_PROD)
+
+                    sh "/home/carsten/bin/dockerRun ${project} prod ${env.BUILD_VERSION}"
+                }
+            }*/
 
             /*stage ('Restart Remote Container (test)') {
                 steps{
