@@ -14,7 +14,7 @@ def call(project) {
     //user = "ec2-user"
     //target = "ec2-34-246-151-3.eu-west-1.compute.amazonaws.com"
     user = "carsten"
-    target = "185.183.96.103"
+    target = "185.141.27.91"
 
     //user = "ec2-user"
     //target = "ec2-63-34-158-91.eu-west-1.compute.amazonaws.com"

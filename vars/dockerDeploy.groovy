@@ -4,7 +4,7 @@ def call() {
     // deploys dockerRun on all machines
 
     user1 = "carsten"
-    target1 = "185.183.96.103"
+    target1 = "185.141.27.91"
 
     user2 = "ec2-user"
     target2 = "ec2-34-246-151-3.eu-west-1.compute.amazonaws.com"

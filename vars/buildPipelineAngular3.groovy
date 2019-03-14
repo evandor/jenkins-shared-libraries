@@ -63,9 +63,9 @@ def call(project, modulePath, baseUrl) {
                     // see https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/
                     // https://stackoverflow.com/questions/37603621/jenkins-sudo-no-tty-present-and-no-askpass-program-specified-with-nopasswd
                     sshagent(credentials : ['sailor1']) {
-                        sh 'ssh -o StrictHostKeyChecking=no carsten@185.183.96.103 uptime ${project}'
-                        sh 'ssh -o StrictHostKeyChecking=no carsten@185.183.96.103 whoami'
-                        sh "ssh -o StrictHostKeyChecking=no carsten@185.183.96.103 dockerRun  ${project} test ${env.BUILD_VERSION}"
+                        sh 'ssh -o StrictHostKeyChecking=no carsten@185.141.27.91 uptime ${project}'
+                        sh 'ssh -o StrictHostKeyChecking=no carsten@185.141.27.91 whoami'
+                        sh "ssh -o StrictHostKeyChecking=no carsten@185.141.27.91 dockerRun  ${project} test ${env.BUILD_VERSION}"
                     }
                 }
             }*/
