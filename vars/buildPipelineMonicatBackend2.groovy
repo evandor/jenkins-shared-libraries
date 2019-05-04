@@ -96,6 +96,12 @@ def call(project, modulePath, theStage) {
                 }
             }*/
 
+            stage('Sonar') {
+                steps {
+                    sh "cd ${env.MODULE_PATH} && ./gradlew sonarqube --info -DbuildVersion=${env.BUILD_VERSION}"
+                }
+            }
+
             stage('Document') {
                 steps {
                     //sh "./gradlew asciidoctor"
