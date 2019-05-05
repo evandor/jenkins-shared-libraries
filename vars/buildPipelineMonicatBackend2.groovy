@@ -105,7 +105,7 @@ def call(project, modulePath, theStage) {
             stage('Document') {
                 steps {
                     //sh "./gradlew asciidoctor"
-                    sh "cd ${env.MODULE_PATH} && ./gradlew scaladoc asciidoc"
+                    sh "cd ${env.MODULE_PATH} && ./gradlew -Dconfig.resource=ci.conf scaladoc asciidoc"
                 }
             }
             stage('Publish Asciidoc') {
