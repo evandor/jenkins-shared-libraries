@@ -52,7 +52,7 @@ def call(project, modulePath, theStage) {
 
             stage('Build Docker Images') {
                 steps {
-                    sh "cd ${env.MODULE_PATH} && ./gradlew docker --info -DbuildVersion=${env.BUILD_VERSION}"
+                    sh "cd ${env.MODULE_PATH} && ./gradlew -Dconfig.resource=ci.conf docker --info -DbuildVersion=${env.BUILD_VERSION}"
                 }
             }
 
