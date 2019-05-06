@@ -98,7 +98,7 @@ def call(project, modulePath, theStage) {
 
             stage('Sonar') {
                 steps {
-                    sh "cd ${env.MODULE_PATH} && ./gradlew -Dconfig.resource=ci.conf reportScoverage --info -DbuildVersion=${env.BUILD_VERSION}"
+                    sh "cd ${env.MODULE_PATH} && ./gradlew -Dconfig.resource=ci.conf reportScoverage -x compileScala --info -DbuildVersion=${env.BUILD_VERSION}"
                     sh "cd ${env.MODULE_PATH} && ./gradlew -Dconfig.resource=ci.conf sonarqube --info -DbuildVersion=${env.BUILD_VERSION}"
                 }
             }
