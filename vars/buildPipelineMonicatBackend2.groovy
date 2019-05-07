@@ -24,7 +24,7 @@ def call(project, modulePath, theStage) {
         options {
             buildDiscarder(logRotator(numToKeepStr: '20'))
             sidebarLinks([
-                [displayName: 'monicat-backend.test.skysail.io', iconFileName: 'help', urlName: 'http://monicat-backend.test.skysail.io/'],
+                [displayName: 'sonar', iconFileName: 'help', urlName: 'http://85.25.22.126:9000'],
                 [displayName: 'monicat-backend.skysail.io', iconFileName: 'help', urlName: 'http://monicat-backend.skysail.io/']
             ])
         }
