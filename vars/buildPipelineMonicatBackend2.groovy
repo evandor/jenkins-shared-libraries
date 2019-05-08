@@ -108,6 +108,14 @@ def call(project, modulePath, theStage) {
                                  reportFiles: 'index.html',
                                  reportName: 'SonarTests'
                     ])
+                    publishHTML([reportTitles: 'Sonar Test Results',
+                                 allowMissing: false,
+                                 alwaysLinkToLastBuild: true,
+                                 keepAll: true,
+                                 reportDir: 'build/reports/scoverage',
+                                 reportFiles: 'index.html',
+                                 reportName: 'Coverage Report'
+                    ])
                 }
             }
 
