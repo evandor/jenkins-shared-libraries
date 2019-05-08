@@ -100,6 +100,14 @@ def call(project, modulePath, theStage) {
                 steps {
                     sh "cd ${env.MODULE_PATH} && ./gradlew -Dconfig.resource=ci.conf reportScoverage -x compileScala --info -DbuildVersion=${env.BUILD_VERSION}"
                     sh "cd ${env.MODULE_PATH} && ./gradlew -Dconfig.resource=ci.conf sonarqube --info -DbuildVersion=${env.BUILD_VERSION}"
+                    publishHTML([reportTitles: 'Sonar Test Failures',
+                                 allowMissing: false,
+                                 alwaysLinkToLastBuild: true,
+                                 keepAll: true,
+                                 reportDir: 'build/reports/tests/testScoverage',
+                                 reportFiles: 'index.html',
+                                 reportName: 'SonarTests'
+                    ])
                 }
             }
 
