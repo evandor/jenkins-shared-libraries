@@ -114,7 +114,7 @@ def call(project, modulePath, theStage) {
                                  keepAll: true,
                                  reportDir: 'build/reports/scoverage',
                                  reportFiles: 'index.html',
-                                 reportName: 'Coverage Report'
+                                 reportName: 'CoverageReport'
                     ])
                 }
             }
