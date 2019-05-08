@@ -113,7 +113,7 @@ def call(project, modulePath, theStage) {
                                  alwaysLinkToLastBuild: true,
                                  keepAll: true,
                                  reportDir: 'build/reports/scoverage',
-                                 reportFiles: 'index.html',
+                                 reportFiles: 'index.html,overview.html,packages.html',
                                  reportName: 'CoverageReport'
                     ])
                 }
