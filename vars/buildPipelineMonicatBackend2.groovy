@@ -100,23 +100,28 @@ def call(project, modulePath, theStage) {
                 steps {
                     sh "cd ${env.MODULE_PATH} && ./gradlew -Dconfig.resource=ci.conf reportScoverage -x compileScala --info -DbuildVersion=${env.BUILD_VERSION}"
                     sh "cd ${env.MODULE_PATH} && ./gradlew -Dconfig.resource=ci.conf sonarqube --info -DbuildVersion=${env.BUILD_VERSION}"
-                    publishHTML([reportTitles: 'Sonar Test Failures',
-                                 allowMissing: false,
+                }
+                post {
+                    always {
+                        publishHTML([reportTitles         : 'Sonar Test Failures',
+                                     allowMissing         : false,
+                                     alwaysLinkToLastBuild: true,
+                                     keepAll              : true,
+                                     reportDir            : 'build/reports/tests/testScoverage',
+                                     reportFiles          : 'index.html',
+                                     reportName           : 'SonarTests'
+                        ])
+                    }
+                    publishHTML([reportTitles         : 'Sonar Test Results',
+                                 allowMissing         : false,
                                  alwaysLinkToLastBuild: true,
-                                 keepAll: true,
-                                 reportDir: 'build/reports/tests/testScoverage',
-                                 reportFiles: 'index.html',
-                                 reportName: 'SonarTests'
-                    ])
-                    publishHTML([reportTitles: 'Sonar Test Results',
-                                 allowMissing: false,
-                                 alwaysLinkToLastBuild: true,
-                                 keepAll: true,
-                                 reportDir: 'build/reports/scoverage',
-                                 reportFiles: 'index.html,overview.html,packages.html',
-                                 reportName: 'CoverageReport'
+                                 keepAll              : true,
+                                 reportDir            : 'build/reports/scoverage',
+                                 reportFiles          : 'index.html,overview.html,packages.html',
+                                 reportName           : 'CoverageReport'
                     ])
                 }
+
             }
 
             stage('Document') {
