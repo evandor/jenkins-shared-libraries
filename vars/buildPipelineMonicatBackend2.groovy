@@ -111,8 +111,6 @@ def call(project, modulePath, theStage) {
                                      reportFiles          : 'index.html',
                                      reportName           : 'SonarTests'
                         ])
-                    }
-                    always {
                         publishHTML([reportTitles         : 'Sonar Test Results',
                                      allowMissing         : false,
                                      alwaysLinkToLastBuild: true,
@@ -122,7 +120,6 @@ def call(project, modulePath, theStage) {
                                      reportName           : 'CoverageReport'
                         ])
                     }
-
                 }
             }
 
