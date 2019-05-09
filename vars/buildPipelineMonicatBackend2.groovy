@@ -103,14 +103,6 @@ def call(project, modulePath, theStage) {
                 }
                 post {
                     always {
-                        publishHTML([reportTitles         : 'Sonar Test Failures',
-                                     allowMissing         : false,
-                                     alwaysLinkToLastBuild: true,
-                                     keepAll              : true,
-                                     reportDir            : 'build/reports/tests/testScoverage',
-                                     reportFiles          : 'index.html',
-                                     reportName           : 'SonarTests'
-                        ])
                         publishHTML([reportTitles         : 'Sonar Test Results',
                                      allowMissing         : false,
                                      alwaysLinkToLastBuild: true,
