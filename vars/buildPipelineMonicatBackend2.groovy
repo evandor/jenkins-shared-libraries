@@ -24,8 +24,8 @@ def call(project, modulePath, theStage) {
         options {
             buildDiscarder(logRotator(numToKeepStr: '20'))
             sidebarLinks([
-                [displayName: 'sonar', iconFileName: 'help', urlName: 'http://85.25.22.126:9000'],
-                [displayName: 'monicat-backend.skysail.io', iconFileName: 'help', urlName: 'http://monicat-backend.skysail.io/']
+                    [displayName: 'sonar', iconFileName: 'help', urlName: 'http://85.25.22.126:9000'],
+                    [displayName: 'monicat-backend.skysail.io', iconFileName: 'help', urlName: 'http://monicat-backend.skysail.io/']
             ])
         }
 
@@ -56,7 +56,7 @@ def call(project, modulePath, theStage) {
                 }
             }
 
-            stage ('Push 2 Docker.io') {
+            stage('Push 2 Docker.io') {
                 steps {
                     sh "docker --version"
                     //sh "docker images"
@@ -70,8 +70,8 @@ def call(project, modulePath, theStage) {
                 }
             }
 
-            stage ('Restart Local Container (test)') {
-                steps{
+            stage('Restart Local Container (test)') {
+                steps {
                     sh "/home/carsten/bin/dockerRun ${project} ${theStage} ${env.BUILD_VERSION}"
                 }
             }
@@ -112,16 +112,18 @@ def call(project, modulePath, theStage) {
                                      reportName           : 'SonarTests'
                         ])
                     }
-                    publishHTML([reportTitles         : 'Sonar Test Results',
-                                 allowMissing         : false,
-                                 alwaysLinkToLastBuild: true,
-                                 keepAll              : true,
-                                 reportDir            : 'build/reports/scoverage',
-                                 reportFiles          : 'index.html,overview.html,packages.html',
-                                 reportName           : 'CoverageReport'
-                    ])
-                }
+                    always {
+                        publishHTML([reportTitles         : 'Sonar Test Results',
+                                     allowMissing         : false,
+                                     alwaysLinkToLastBuild: true,
+                                     keepAll              : true,
+                                     reportDir            : 'build/reports/scoverage',
+                                     reportFiles          : 'index.html,overview.html,packages.html',
+                                     reportName           : 'CoverageReport'
+                        ])
+                    }
 
+                }
             }
 
             stage('Document') {
@@ -132,13 +134,13 @@ def call(project, modulePath, theStage) {
             }
             stage('Publish Asciidoc') {
                 steps {
-                    publishHTML([reportTitles: 'Documentation',
-                                 allowMissing: false,
+                    publishHTML([reportTitles         : 'Documentation',
+                                 allowMissing         : false,
                                  alwaysLinkToLastBuild: true,
-                                 keepAll: true,
-                                 reportDir: 'build/docs/html5',
-                                 reportFiles: 'monicat-backend.html,api-guide.html',
-                                 reportName: 'Docs'
+                                 keepAll              : true,
+                                 reportDir            : 'build/docs/html5',
+                                 reportFiles          : 'monicat-backend.html,api-guide.html',
+                                 reportName           : 'Docs'
                     ])
 
                 }
