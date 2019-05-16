@@ -26,6 +26,7 @@ def call(project, modulePath, theStage) {
             sidebarLinks([
                     [displayName: 'sonar', iconFileName: 'help', urlName: 'http://85.25.22.126:9000'],
                     [displayName: 'logs', iconFileName: 'help', urlName: 'https://app.logz.io/#/dashboard/kibana'],
+                    [displayName: 'oneSignal', iconFileName: 'help', urlName: 'https://app.onesignal.com/apps/26dd1c4f-1f9c-4a51-b862-e080d8aedc64'],
                     [displayName: 'monicat-backend.skysail.io', iconFileName: 'help', urlName: 'http://monicat-backend.skysail.io/']
             ])
         }
