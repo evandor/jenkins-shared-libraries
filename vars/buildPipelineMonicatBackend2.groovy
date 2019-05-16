@@ -25,6 +25,7 @@ def call(project, modulePath, theStage) {
             buildDiscarder(logRotator(numToKeepStr: '20'))
             sidebarLinks([
                     [displayName: 'sonar', iconFileName: 'help', urlName: 'http://85.25.22.126:9000'],
+                    [displayName: 'logs', iconFileName: 'help', urlName: 'https://app.logz.io/#/dashboard/kibana'],
                     [displayName: 'monicat-backend.skysail.io', iconFileName: 'help', urlName: 'http://monicat-backend.skysail.io/']
             ])
         }
