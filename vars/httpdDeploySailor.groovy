@@ -17,7 +17,7 @@ def call(user, target) {
 
             }
 
-            stage ('Copy dockerRun to target...') {
+            stage ('Copying sites-available and restarting apache...') {
                 steps{
                     sshagent(credentials : ['sailor1']) {
                         sh "ssh -o StrictHostKeyChecking=no ${user}@${target} uptime"
@@ -25,6 +25,14 @@ def call(user, target) {
                         sh "scp -o StrictHostKeyChecking=no -r sailor1/sites-available/ ${user}@${target}:/etc/apache2"
                         //sh "ssh -o StrictHostKeyChecking=no ${user}@${target} sudo service httpd restart"
                         sh "ssh -o StrictHostKeyChecking=no ${user}@${target} sudo systemctl reload apache2"
+                    }
+                }
+            }
+
+            stage ('Copying docker files to target...') {
+                steps{
+                    sshagent(credentials : ['sailor1']) {
+                        sh "scp -o StrictHostKeyChecking=no -r sailor1/docker/ ${user}@${target}:/home/carsten/docker"
                     }
                 }
             }
