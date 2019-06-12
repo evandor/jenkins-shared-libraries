@@ -32,7 +32,8 @@ def call(user, target) {
             stage ('Copying docker files to target...') {
                 steps{
                     sshagent(credentials : ['sailor1']) {
-                        sh "scp -o StrictHostKeyChecking=no -r sailor1/docker/ ${user}@${target}:/home/carsten/docker"
+                        // see project http://85.25.22.126:3000/carsten/skysail-infrastructure.git
+                        sh "scp -o StrictHostKeyChecking=no -r sailor1/docker/ ${user}@${target}:/home/carsten/"
                     }
                 }
             }
