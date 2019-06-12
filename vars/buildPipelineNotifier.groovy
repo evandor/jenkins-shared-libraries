@@ -46,11 +46,11 @@ def call(project, modulePath, theStage) {
                 steps {
                     sh "cd ${env.MODULE_PATH} && ./gradlew -Dconfig.resource=ci.conf -DbuildVersion=${env.BUILD_VERSION} --stacktrace --continue clean build"
                 }
-                post {
+                /*post {
                     always {
-                        junit "**/test-results/test/TEST-*.xml"
+                        junit "**     /test-results/test/TEST-*.xml"
                     }
-                }
+                }*/
             }
 
             stage('Build Docker Images') {
