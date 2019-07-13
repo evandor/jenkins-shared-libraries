@@ -72,7 +72,7 @@ def call(project, modulePath, baseUrl) {
 
             stage ('Restart Remote Container (test)') {
                 steps{
-                    sh "/home/carsten/bin/dockerRun ${project} test ${env.BUILD_VERSION}"
+                    sh "/home/carsten/bin/dockerRun ${project} prod ${env.BUILD_VERSION}"
                 }
             }
 
