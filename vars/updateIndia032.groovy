@@ -33,6 +33,8 @@ def call() {
                         sh "ssh -o StrictHostKeyChecking=no ${user}@${target} uptime"
                         sh "scp -o StrictHostKeyChecking=no -r india032/sites-available/ ${user}@${target}:/etc/apache2"
                         sh "ssh -o StrictHostKeyChecking=no ${user}@${target} sudo service apache2 reload"
+                        sh "ssh -o StrictHostKeyChecking=no ${user}@${target} sudo systemctl status apache2.service"
+                        sh "ssh -o StrictHostKeyChecking=no ${user}@${target} sudo journalctl -xn"
                     }
 
                 }
