@@ -24,9 +24,10 @@ def call(project, modulePath, theStage) {
         options {
             buildDiscarder(logRotator(numToKeepStr: '20'))
             sidebarLinks([
-                    [displayName: 'sonar', iconFileName: 'help', urlName: 'http://85.25.22.126:9000'],
+                   // [displayName: 'sonar', iconFileName: 'help', urlName: 'http://85.25.22.126:9000'],
                     [displayName: 'logs', iconFileName: 'help', urlName: 'https://app.logz.io/#/dashboard/kibana'],
                     [displayName: 'actuator', iconFileName: 'help', urlName: 'http://185.141.27.91:6011'],
+                    [displayName: 'scaladoc', iconFileName: 'help', urlName: 'http://185.141.27.91:6011'],
                     [displayName: 'oneSignal', iconFileName: 'help', urlName: 'https://app.onesignal.com/apps/26dd1c4f-1f9c-4a51-b862-e080d8aedc64'],
                     [displayName: 'monicat-backend.skysail.io', iconFileName: 'help', urlName: 'http://monicat-backend.skysail.io/']
             ])
@@ -134,6 +135,19 @@ def call(project, modulePath, theStage) {
                                  reportDir            : 'build/docs/html5',
                                  reportFiles          : 'monicat-backend.html,api-guide.html',
                                  reportName           : 'Docs'
+                    ])
+
+                }
+            }
+            stage('Publish Scaladoc') {
+                steps {
+                    publishHTML([reportTitles         : 'Technical Documentation',
+                                 allowMissing         : false,
+                                 alwaysLinkToLastBuild: true,
+                                 keepAll              : true,
+                                 reportDir            : 'build/scaladoc',
+                                 reportFiles          : 'indes.html',
+                                 reportName           : 'Scaladoc'
                     ])
 
                 }
