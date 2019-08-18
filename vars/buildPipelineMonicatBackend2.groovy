@@ -146,7 +146,7 @@ def call(project, modulePath, theStage) {
                                  alwaysLinkToLastBuild: true,
                                  keepAll              : true,
                                  reportDir            : 'build/scaladoc',
-                                 reportFiles          : 'indes.html',
+                                 reportFiles          : 'index.html',
                                  reportName           : 'Scaladoc'
                     ])
 
