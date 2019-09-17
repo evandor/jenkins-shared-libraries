@@ -75,7 +75,7 @@ def call(project, modulePath, theStage) {
                 }
             }
 
-            stage("Restart Container on Stage ${theStage}") {
+            stage("Restart Container") {
                 steps {
                     sh "/home/carsten/bin/dockerRun ${project} ${theStage} ${env.BUILD_VERSION}"
                 }
