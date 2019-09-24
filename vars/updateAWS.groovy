@@ -19,8 +19,8 @@ def call(user, target) {
 
             stage('Copy crontab files...') {
                 steps {
-                    sh "scp -i /root/.ssh/skysail.pem -r aws/ec2-34-246-151-3/crontab/* ${user}@${target}:/home/ec2-user/bin/"
-                    sh "ssh -i /root/.ssh/skysail.pem ${user}@${target} chmod 775 /home/ec2-user/bin/*.sh"
+                    sh "scp -i /root/.ssh/skysail.pem -r aws/ec2-34-246-151-3/crontab/* ${user}@${target}:/home/ec2-user/bin/cron"
+                    sh "ssh -i /root/.ssh/skysail.pem ${user}@${target} chmod 775 /home/ec2-user/bin/cron/*.sh"
                 }
             }
 
