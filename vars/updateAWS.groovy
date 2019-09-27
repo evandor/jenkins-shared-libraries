@@ -26,7 +26,7 @@ def call(user, target) {
 
             stage('Copy docker files...') {
                 steps {
-                    sh "scp -i /root/.ssh/skysail.pem -r aws/ec2-34-246-151-3/docker/* ${user}@${target}:/home/ec2-user/bin/docker"
+                    sh "scp -i /root/.ssh/skysail.pem -r aws/ec2-34-246-151-3/docker/* ${user}@${target}:/home/ec2-user/docker"
                 }
             }
 
