@@ -41,6 +41,14 @@ def call() {
                 }
             }
 
+            stage ('Copying docker files to target...') {
+                steps{
+                    sshagent(credentials : ['fecd2933-c9aa-4998-9806-8f13bb88bbbc']) {
+                        sh "scp -o StrictHostKeyChecking=no -r india032/docker/ ${user}@${target}:/home/carsten/"
+                    }
+                }
+            }
+
         }
     }
 }
