@@ -57,7 +57,7 @@ def call(project) {
 
             stage('Build Docker Images') {
                 steps {
-                    sh "./gradlew docker --info -DbuildVersion=${env.BUILD_VERSION}"
+                    sh "./gradlew docker --info -DbuildVersion=${env.BUILD_VERSION},latest"
                 }
             }
 
