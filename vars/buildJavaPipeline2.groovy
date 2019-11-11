@@ -70,6 +70,7 @@ def call(project) {
                             passwordVariable: 'DOCKER_PASSWORD',)]) {
                         sh "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD"
                         sh "docker push $DOCKER_USERNAME/$project:${env.BUILD_VERSION}"
+                        sh "docker push $DOCKER_USERNAME/$project:latest"
                         //sh "docker push $DOCKER_USERNAME/$project:latest"
                     }
                 }
