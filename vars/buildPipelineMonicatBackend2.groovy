@@ -120,11 +120,11 @@ def call(project, modulePath, theStage) {
                 }
             }*/
 
-            stage('Document') {
+            /*stage('Document') {
                 steps {
                     //sh "cd ${env.MODULE_PATH} && ./gradlew -Dconfig.resource=ci.conf scaladoc asciidoc -DbuildVersion=${env.BUILD_VERSION}"
                 }
-            }
+            }*/
             stage('Publish Asciidoc') {
                 steps {
                     publishHTML([reportTitles         : 'Documentation',
