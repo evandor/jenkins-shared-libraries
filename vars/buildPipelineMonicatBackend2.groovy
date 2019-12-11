@@ -138,7 +138,7 @@ def call(project, modulePath, theStage) {
 
                 }
             }
-            stage('Publish Scaladoc') {
+            /*stage('Publish Scaladoc') {
                 steps {
                     publishHTML([reportTitles         : 'Technical Documentation',
                                  allowMissing         : false,
@@ -150,7 +150,7 @@ def call(project, modulePath, theStage) {
                     ])
 
                 }
-            }
+            }*/
 
 
         }
